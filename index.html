@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LoL Match Prediction | ML Research Project</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --gold: #C8AA6E;
+            --gold-light: #F0E6D2;
+            --gold-dark: #785A28;
+            --blue: #0AC8B9;
+            --blue-dark: #0A1428;
+            --blue-darker: #010A13;
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--blue-darker);
+            color: var(--gold-light);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+        
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            background: 
+                radial-gradient(ellipse at 20% 80%, rgba(10, 200, 185, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 20%, rgba(200, 170, 110, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(10, 20, 40, 1) 0%, var(--blue-darker) 100%);
+        }
+        
+        .content {
+            position: relative;
+            z-index: 1;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(200, 170, 110, 0.15);
+            border: 1px solid var(--gold-dark);
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+        }
+        
+        h1 {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            color: var(--gold);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            max-width: 700px;
+        }
+        
+        .subtitle {
+            font-size: 1rem;
+            color: var(--gold-light);
+            opacity: 0.8;
+            max-width: 550px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+        
+        .author-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+            padding: 0.8rem 1.2rem;
+            background: rgba(10, 20, 40, 0.6);
+            border: 1px solid rgba(200, 170, 110, 0.2);
+            border-radius: 8px;
+        }
+        
+        .author-avatar {
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            color: var(--blue-darker);
+        }
+        
+        .author-info h3 {
+            font-size: 0.95rem;
+            color: var(--gold-light);
+            font-weight: 500;
+        }
+        
+        .author-info p {
+            font-size: 0.8rem;
+            color: var(--blue);
+        }
+        
+        .stats-row {
+            display: flex;
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .stat {
+            text-align: center;
+            padding: 0.5rem;
+        }
+        
+        .stat-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold);
+        }
+        
+        .stat-label {
+            font-size: 0.7rem;
+            color: var(--gold-light);
+            opacity: 0.6;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+            width: 100%;
+            max-width: 350px;
+        }
+        
+        .btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+            padding: 0.9rem 1.5rem;
+            border-radius: 4px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--blue-darker);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 170, 110, 0.3);
+        }
+        
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(200, 170, 110, 0.1);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(200, 170, 110, 0.4);
+            color: var(--gold-light);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+        
+        .findings-preview {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 0.8rem;
+            margin: 2rem 0;
+            max-width: 700px;
+            width: 100%;
+        }
+        
+        .finding-card {
+            background: rgba(10, 20, 40, 0.6);
+            border: 1px solid rgba(200, 170, 110, 0.15);
+            border-radius: 6px;
+            padding: 1rem;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .finding-card:hover {
+            border-color: var(--gold-dark);
+            transform: translateY(-2px);
+        }
+        
+        .finding-card h4 {
+            font-size: 0.75rem;
+            color: var(--gold);
+            margin-bottom: 0.3rem;
+            font-weight: 500;
+        }
+        
+        .finding-value {
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            color: var(--blue);
+        }
+        
+        .finding-desc {
+            font-size: 0.65rem;
+            color: var(--gold-light);
+            opacity: 0.6;
+        }
+        
+        .footer {
+            margin-top: 2rem;
+            text-align: center;
+            font-size: 0.75rem;
+            color: var(--gold-light);
+            opacity: 0.4;
+        }
+        
+        .corner-decoration {
+            position: fixed;
+            width: 150px;
+            height: 150px;
+            pointer-events: none;
+            opacity: 0.08;
+        }
+        
+        .corner-decoration.top-left {
+            top: 0;
+            left: 0;
+            border-top: 2px solid var(--gold);
+            border-left: 2px solid var(--gold);
+        }
+        
+        .corner-decoration.bottom-right {
+            bottom: 0;
+            right: 0;
+            border-bottom: 2px solid var(--gold);
+            border-right: 2px solid var(--gold);
+        }
+        
+        @media (max-width: 600px) {
+            .findings-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .author-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    <div class="corner-decoration top-left"></div>
+    <div class="corner-decoration bottom-right"></div>
+    
+    <div class="content">
+        <header class="header">
+            <span class="badge">Machine Learning Research</span>
+            <h1>Predicting League of Legends Match Outcomes from Early Game Statistics</h1>
+            <p class="subtitle">A data-driven analysis of 9,879 Diamond-tier ranked games using six classification models to identify key early-game factors that determine victory</p>
+        </header>
+        
+        <div class="author-card">
+            <div class="author-avatar"><i class="fas fa-user"></i></div>
+            <div class="author-info">
+                <h3>Aaron Wen</h3>
+                <p>UCLA AOS C111 · December 2025</p>
+            </div>
+        </div>
+        
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-value">9,879</div>
+                <div class="stat-label">Games</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">72%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">0.80</div>
+                <div class="stat-label">AUC</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
+                <div class="stat-label">Models</div>
+            </div>
+        </div>
+        
+        <div class="findings-preview">
+            <div class="finding-card">
+                <h4>Gold Diff</h4>
+                <div class="finding-value">r=0.51</div>
+                <div class="finding-desc">Top predictor</div>
+            </div>
+            <div class="finding-card">
+                <h4>First Blood</h4>
+                <div class="finding-value">+20%</div>
+                <div class="finding-desc">Win rate boost</div>
+            </div>
+            <div class="finding-card">
+                <h4>Dragon</h4>
+                <div class="finding-value">+22%</div>
+                <div class="finding-desc">Win advantage</div>
+            </div>
+            <div class="finding-card">
+                <h4>Both Obj.</h4>
+                <div class="finding-value">73%</div>
+                <div class="finding-desc">Win rate</div>
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <a href="report.html" class="btn btn-primary">
+                <i class="fas fa-book-open"></i> View Full Report
+            </a>
+            <a href="https://google.com" class="btn btn-secondary" target="_blank">
+                <i class="fab fa-github"></i> GitHub Repository
+            </a>
+            <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min" class="btn btn-outline" target="_blank">
+                <i class="fas fa-database"></i> Download Dataset (Kaggle)
+            </a>
+        </div>
+        
+        <footer class="footer">
+            <p>© 2025 UCLA AOS C111/204 · Introduction to Machine Learning for Physical Sciences</p>
+        </footer>
+    </div>
+</body>
+</html>

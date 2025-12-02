@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full Report | LoL Match Prediction</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/python.min.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --gold: #C8AA6E;
+            --gold-light: #F0E6D2;
+            --gold-dark: #785A28;
+            --blue: #0AC8B9;
+            --blue-dark: #0A1428;
+            --blue-darker: #010A13;
+            --red: #E84057;
+            --text-primary: #E8E4D9;
+            --text-secondary: #A09B8C;
+            --bg-card: rgba(10, 20, 40, 0.7);
+            --border-color: rgba(200, 170, 110, 0.25);
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(180deg, #010A13 0%, #0A1428 100%);
+            background-attachment: fixed;
+            color: var(--text-primary);
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(1, 10, 19, 0.95);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+        }
+        
+        .nav-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 55px;
+        }
+        
+        .nav-logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 1.2rem;
+            list-style: none;
+        }
+        
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.8rem;
+            transition: color 0.3s;
+        }
+        
+        .nav-links a:hover { color: var(--gold); }
+        
+        /* Main Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 70px 2rem 4rem;
+        }
+        
+        /* Header */
+        .paper-header {
+            text-align: center;
+            padding: 2.5rem 0;
+            border-bottom: 1px solid var(--border-color);
+            margin-bottom: 2.5rem;
+        }
+        
+        .paper-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.9rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .header-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.3rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        .header-meta .course {
+            color: var(--blue);
+        }
+        
+        /* Download Bar */
+        .download-bar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            justify-content: center;
+            padding: 1.2rem;
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 2.5rem;
+        }
+        
+        .dl-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: var(--blue-darker);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .dl-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(200, 170, 110, 0.3);
+        }
+        
+        .dl-btn.outline {
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+        }
+        
+        /* Sections */
+        .section { margin-bottom: 3rem; }
+        
+        h2 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--gold-dark);
+        }
+        
+        h3 {
+            font-size: 1.15rem;
+            color: var(--gold-light);
+            margin: 2rem 0 1rem;
+        }
+        
+        h4 {
+            font-size: 1rem;
+            color: var(--blue);
+            margin: 1.5rem 0 0.8rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+        
+        a { color: var(--blue); }
+        
+        strong, b { color: var(--gold-light); }
+        
+        code {
+            font-family: 'Fira Code', monospace;
+            background: rgba(0,0,0,0.3);
+            padding: 0.15rem 0.4rem;
+            border-radius: 3px;
+            font-size: 0.85em;
+        }
+        
+        /* Images */
+        .figure {
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+        
+        .figure img {
+            max-width: 100%;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .figure-caption {
+            margin-top: 0.6rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+        
+        /* Code Blocks */
+        .code-block {
+            margin: 1.2rem 0;
+            background: #1a1a2e;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .code-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.4rem 1rem;
+            background: rgba(200, 170, 110, 0.08);
+            border-bottom: 1px solid var(--border-color);
+            font-size: 0.75rem;
+            color: var(--gold);
+        }
+        
+        .code-toggle {
+            background: transparent;
+            border: 1px solid var(--gold-dark);
+            color: var(--gold);
+            padding: 0.2rem 0.6rem;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 0.7rem;
+        }
+        
+        .code-toggle:hover {
+            background: rgba(200, 170, 110, 0.15);
+        }
+        
+        .code-content {
+            max-height: 500px;
+            overflow: auto;
+            transition: max-height 0.3s;
+        }
+        
+        .code-content.collapsed {
+            max-height: 0;
+            overflow: hidden;
+        }
+        
+        .code-content pre {
+            margin: 0;
+            padding: 1rem;
+        }
+        
+        .code-content code {
+            font-size: 0.82rem;
+            line-height: 1.5;
+            background: transparent;
+            padding: 0;
+        }
+        
+        /* Output */
+        .output {
+            margin: 0.8rem 0 1.5rem;
+            padding: 0.8rem 1rem;
+            background: rgba(10, 200, 185, 0.05);
+            border-left: 3px solid var(--blue);
+            border-radius: 0 6px 6px 0;
+            font-family: 'Fira Code', monospace;
+            font-size: 0.82rem;
+            overflow-x: auto;
+        }
+        
+        .output pre {
+            margin: 0;
+            white-space: pre-wrap;
+        }
+        
+        /* Tables */
+        .table-wrapper {
+            margin: 1.2rem 0;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+        
+        thead { background: rgba(200, 170, 110, 0.12); }
+        
+        th {
+            padding: 0.7rem 0.8rem;
+            text-align: left;
+            color: var(--gold);
+            font-weight: 600;
+            border-bottom: 2px solid var(--gold-dark);
+        }
+        
+        td {
+            padding: 0.6rem 0.8rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        tbody tr:hover { background: rgba(10, 200, 185, 0.05); }
+        
+        /* Equation */
+        .equation {
+            padding: 1rem;
+            background: rgba(10, 20, 40, 0.4);
+            border-radius: 6px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            text-align: center;
+        }
+        
+        /* TOC */
+        .toc {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.2rem 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .toc h3 {
+            margin: 0 0 0.8rem;
+            font-size: 1rem;
+            color: var(--gold);
+        }
+        
+        .toc ul {
+            list-style: none;
+            columns: 2;
+            column-gap: 2rem;
+        }
+        
+        .toc li {
+            margin-bottom: 0.4rem;
+        }
+        
+        .toc a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.85rem;
+            transition: color 0.2s;
+        }
+        
+        .toc a:hover { color: var(--gold); }
+        
+        /* References */
+        .references ol {
+            padding-left: 1.5rem;
+        }
+        
+        .references li {
+            margin-bottom: 0.7rem;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+        
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem;
+            border-top: 1px solid var(--border-color);
+            margin-top: 3rem;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+        
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: var(--blue-darker); }
+        ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+        
+        /* Interactive hover on images */
+        .figure img {
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
+        }
+        
+        .figure img:hover {
+            transform: scale(1.02);
+        }
+        
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .container { padding: 60px 1rem 2rem; }
+            .paper-header h1 { font-size: 1.5rem; }
+            .toc ul { columns: 1; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo"><i class="fas fa-arrow-left"></i> Back to Home</a>
+            <ul class="nav-links">
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#introduction">Introduction</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#methods">Methods</a></li>
+                <li><a href="#results">Results</a></li>
+                <li><a href="#discussion">Discussion</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="paper-header">
+            <h1>Predicting League of Legends Match Outcomes from Early Game Statistics</h1>
+            <div class="header-meta">
+                <span>Aaron Wen (006484831)</span>
+                <span class="course">A&O SCI C111: Introduction to Machine Learning for Physical Sciences</span>
+                <span>December 2025</span>
+            </div>
+        </header>
+        
+        <!-- Download Bar -->
+        <div class="download-bar">
+            <a href="https://google.com" class="dl-btn" target="_blank"><i class="fas fa-file-code"></i> Report (HTML)</a>
+            <a href="https://google.com" class="dl-btn" target="_blank"><i class="fas fa-file-pdf"></i> Report (PDF)</a>
+            <a href="https://google.com" class="dl-btn outline" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+            <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min" class="dl-btn outline" target="_blank"><i class="fas fa-download"></i> Dataset (ZIP)</a>
+        </div>
+        
+        <!-- TOC -->
+        <div class="toc">
+            <h3>Table of Contents</h3>
+            <ul>
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#introduction">1. Introduction</a></li>
+                <li><a href="#data">2. Data</a></li>
+                <li><a href="#methods">3. Methods</a></li>
+                <li><a href="#results">4. Results</a></li>
+                <li><a href="#discussion">5. Discussion</a></li>
+                <li><a href="#conclusion">6. Conclusion</a></li>
+                <li><a href="#references">7. References</a></li>
+            </ul>
+        </div>
+        
+        <!-- Abstract -->
+        <section id="abstract" class="section">
+            <h2>Abstract</h2>
+            <p>This project applies supervised machine learning techniques to predict League of Legends match outcomes based solely on statistics captured at the 10-minute mark. Using a dataset of 9,879 Diamond-tier ranked games, I trained and evaluated six classification models: Logistic Regression (with L1 and L2 regularization), Decision Trees, Random Forests, Gradient Boosting, and Support Vector Machines. All models achieved approximately 72% test accuracy, with Logistic Regression (L1) performing best in cross-validation (73.5% ± 1.5%) and achieving an AUC of 0.80. Feature importance analysis reveals that gold difference is the strongest predictor of victory (r = 0.51), followed by experience difference (r = 0.49). Quantitative analysis shows that securing first blood increases win probability by 20 percentage points, while controlling both dragon and herald leads to a 73% win rate. These findings provide data-driven strategic recommendations for players seeking to optimize their early-game decision-making.</p>
+        </section>
+        
+        <!-- Introduction -->
+        <section id="introduction" class="section">
+            <h2>1. Introduction</h2>
+            
+            <div class="figure">
+                <img src="https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-47eb328eac5ddd63ebd096ded7d0d5ab" alt="League of Legends">
+                <p class="figure-caption">Figure 1: League of Legends gameplay</p>
+            </div>
+            
+            <p>League of Legends (LoL) is a multiplayer online battle arena (MOBA) game where two teams of five players compete to destroy the opposing team's base, known as the Nexus. Each match typically lasts 25-40 minutes and can be divided into three phases: the early game (0-15 minutes), mid game (15-25 minutes), and late game (25+ minutes). The early game, often called the "laning phase," is widely considered the foundation upon which victories are built.</p>
+            
+            <p>During the laning phase, players focus on accumulating gold by killing enemy minions (small AI-controlled units that spawn periodically), securing kills against enemy champions (player-controlled characters), and taking neutral objectives like the Dragon (a powerful monster that grants team-wide buffs) and the Rift Herald (a monster that can be summoned to destroy enemy towers). The strategic decisions made during these critical first minutes—whether to play aggressively for kills, farm safely for gold, or rotate to help teammates—often determine the trajectory of the entire match.</p>
+            
+            <p>Coaches and analysts in professional League of Legends frequently debate which early-game factors matter most. Some argue that securing First Blood (the first kill of the game, which grants bonus gold) provides crucial momentum, while others emphasize the importance of maintaining high CS (Creep Score, the number of minions killed) to ensure consistent gold income. This project addresses these questions through rigorous machine learning analysis.</p>
+            
+            <p>The objectives of this study are threefold. First, I aim to build predictive models that can classify match winners using only statistics from the first 10 minutes. Second, I seek to identify which early-game factors most strongly influence victory through feature importance analysis. Third, I intend to provide quantitative strategic recommendations that players can use to optimize their early-game decision-making. By training models on nearly 10,000 high-level ranked games, this analysis moves beyond conventional wisdom to provide data-driven insights.</p>
+        </section>
+        
+        <!-- Data -->
+        <section id="data" class="section">
+            <h2>2. Data</h2>
+            
+            <h3>2.1 Dataset Overview</h3>
+            <p>The dataset used in this project is sourced from Kaggle and contains comprehensive statistics from 9,879 Diamond-tier ranked games, all captured at the 10-minute mark. Diamond tier represents approximately the top 2% of the player base and is normally seen as a benchmark between casual and professional players, which ensures that the data reflects skilled, competitive play rather than casual matches where fundamental mistakes might obscure strategic patterns. The choice of the 10-minute timestamp is significant because it captures the state of the game after the initial laning phase has developed but before major team objectives become available.</p>
+            
+            <p><strong>Dataset Source:</strong> <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min" target="_blank">Kaggle - League of Legends Diamond Ranked Games 10 min</a></p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+from sklearn.model_selection import train_test_split, cross_val_score, StratifiedKFold
+from sklearn.preprocessing import StandardScaler
+from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
+from sklearn.svm import SVC
+from sklearn.metrics import (accuracy_score, precision_score, recall_score, 
+                             f1_score, confusion_matrix, classification_report,
+                             roc_curve, auc)
+
+np.random.seed(42)
+plt.rcParams['figure.figsize'] = (10, 6)
+plt.rcParams['font.size'] = 11
+
+df = pd.read_csv('high_diamond_ranked_10min.csv')
+print(f"Dataset Shape: {df.shape[0]} games × {df.shape[1]} features")
+
+print(f"\nMissing Values: {df.isnull().sum().sum()}")
+
+blue_cols = [col for col in df.columns if col.startswith('blue')]
+red_cols = [col for col in df.columns if col.startswith('red')]
+print(f"\nBlue team features: {len(blue_cols)}")
+print(f"Red team features: {len(red_cols)}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Dataset Shape: 9879 games × 40 features
+
+Missing Values: 0
+
+Blue team features: 20
+Red team features: 19</pre>
+            </div>
+            
+            <h3>2.2 Feature Description</h3>
+            <p>The dataset contains 40 columns in total, consisting of one game identifier, one target variable, and 19 features for each of the two teams (Blue and Red). The features can be organized into several categories based on the game mechanics they represent.</p>
+            
+            <p>The <strong>target variable</strong> is <code>blueWins</code>, a binary indicator where 1 means the Blue team won and 0 means the Red team won. Since the dataset is structured from the Blue team's perspective, all "blue" prefixed features represent the Blue team's statistics, while "red" prefixed features represent their opponents.</p>
+            
+            <p>The <strong>combat statistics</strong> include <code>blueKills</code> (the number of enemy champions killed by the Blue team), <code>blueDeaths</code> (the number of times Blue team members were killed), and <code>blueAssists</code> (the number of kills where a Blue team member contributed damage but did not get the final blow). These metrics directly reflect the team's success in player-versus-player combat. In League of Legends, each kill grants approximately 300 gold plus additional gold based on the victim's kill streak, making kills a significant source of income.</p>
+            
+            <p>The <strong>economic indicators</strong> are perhaps the most important category. <code>blueTotalGold</code> represents the total gold accumulated by the Blue team, while <code>blueGoldDiff</code> calculates the difference between Blue and Red team gold (positive values favor Blue). Similarly, <code>blueTotalExperience</code> and <code>blueExperienceDiff</code> track experience points, which determine champion levels. Higher levels grant access to stronger abilities and increased base statistics, creating a compounding advantage.</p>
+            
+            <p>The <strong>farming statistics</strong> measure how efficiently teams collect gold from minions. <code>blueTotalMinionsKilled</code> (also known as CS or Creep Score) counts lane minions killed, while <code>blueTotalJungleMinionsKilled</code> counts neutral jungle monsters. Professional players typically aim for 8-10 CS per minute, meaning approximately 80-100 minions killed by the 10-minute mark. <code>blueCSPerMin</code> and <code>blueGoldPerMin</code> provide rate-based versions of these metrics.</p>
+            
+            <p>The <strong>objective control</strong> features track major neutral objectives. <code>blueDragons</code> counts the number of dragons slain (typically 0 or 1 at 10 minutes, since Dragon spawns at 5:00 and has a 5-minute respawn timer). <code>blueHeralds</code> counts Rift Herald captures (also typically 0 or 1, as Herald spawns at 8:00). <code>blueTowersDestroyed</code> counts enemy towers destroyed, and <code>blueFirstBlood</code> is a binary indicator for whether Blue team secured the first kill of the game.</p>
+            
+            <p>The <strong>vision control</strong> features include <code>blueWardsPlaced</code> (the number of wards, which are items that reveal areas of the map from the dark, placed by Blue team) and <code>blueWardsDestroyed</code> (enemy wards destroyed). Vision control is crucial in high-level play for tracking enemy movements and setting up ambushes.</p>
+            
+            <p>Finally, <code>blueEliteMonsters</code> is an aggregate count of major neutral objectives (Dragons + Heralds), and <code>blueAvgLevel</code> represents the average champion level across the five Blue team members.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Summary statistics for key features
+key_features = ['blueKills', 'blueDeaths', 'blueGoldDiff', 'blueExperienceDiff', 
+                'blueDragons', 'blueHeralds', 'blueFirstBlood']
+df[key_features].describe().round(2)</code></pre>
+                </div>
+            </div>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th></th><th>blueKills</th><th>blueDeaths</th><th>blueGoldDiff</th><th>blueExperienceDiff</th><th>blueDragons</th><th>blueHeralds</th><th>blueFirstBlood</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><strong>count</strong></td><td>9879.00</td><td>9879.00</td><td>9879.00</td><td>9879.00</td><td>9879.00</td><td>9879.00</td><td>9879.0</td></tr>
+                        <tr><td><strong>mean</strong></td><td>6.18</td><td>6.14</td><td>14.41</td><td>-33.62</td><td>0.36</td><td>0.19</td><td>0.5</td></tr>
+                        <tr><td><strong>std</strong></td><td>3.01</td><td>2.93</td><td>2453.35</td><td>1920.37</td><td>0.48</td><td>0.39</td><td>0.5</td></tr>
+                        <tr><td><strong>min</strong></td><td>0.00</td><td>0.00</td><td>-10830.00</td><td>-9333.00</td><td>0.00</td><td>0.00</td><td>0.0</td></tr>
+                        <tr><td><strong>25%</strong></td><td>4.00</td><td>4.00</td><td>-1585.50</td><td>-1290.50</td><td>0.00</td><td>0.00</td><td>0.0</td></tr>
+                        <tr><td><strong>50%</strong></td><td>6.00</td><td>6.00</td><td>14.00</td><td>-28.00</td><td>0.00</td><td>0.00</td><td>1.0</td></tr>
+                        <tr><td><strong>75%</strong></td><td>8.00</td><td>8.00</td><td>1596.00</td><td>1212.00</td><td>1.00</td><td>0.00</td><td>1.0</td></tr>
+                        <tr><td><strong>max</strong></td><td>22.00</td><td>22.00</td><td>11467.00</td><td>8348.00</td><td>1.00</td><td>1.00</td><td>1.0</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h3>2.3 Exploratory Data Analysis</h3>
+            <p>Before building predictive models, it is essential to understand the relationships between early-game statistics and match outcomes. This exploratory analysis will guide feature selection and provide initial hypotheses about which factors matter most.</p>
+            
+            <div class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='350' viewBox='0 0 800 350'%3E%3Crect fill='%230A1428' width='800' height='350'/%3E%3Ctext x='400' y='170' text-anchor='middle' fill='%23C8AA6E' font-size='14'%3EFigure 2a: Win Rate Distribution and Gold Difference by Outcome%3C/text%3E%3Ctext x='400' y='195' text-anchor='middle' fill='%23A09B8C' font-size='11'%3E(Run notebook to generate plot)%3C/text%3E%3C/svg%3E" alt="Win Rate Distribution">
+                <p class="figure-caption">Figure 2a: Win rate distribution (left) and gold difference by outcome (right)</p>
+            </div>
+            
+            <p>The dataset is well-balanced, with Blue team winning 4,930 games (49.9%) and losing 4,949 games (50.1%). This near-equal split is expected since team assignment (Blue vs Red) is essentially random, and any inherent map-side advantage is minimal at the Diamond level where players understand how to play both sides effectively.</p>
+            
+            <p>The correlation analysis reveals clear relationships between early-game statistics and match outcomes. Gold Difference shows the strongest correlation with winning (r = 0.51), followed closely by Experience Difference (r = 0.49). These two metrics are themselves highly correlated (r = 0.89), which makes intuitive sense: teams that are ahead in gold have typically secured more kills and farm, both of which also grant experience.</p>
+            
+            <div class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='700' height='550' viewBox='0 0 700 550'%3E%3Crect fill='%230A1428' width='700' height='550'/%3E%3Ctext x='350' y='270' text-anchor='middle' fill='%23C8AA6E' font-size='14'%3EFigure 2b: Feature Correlation Heatmap%3C/text%3E%3Ctext x='350' y='295' text-anchor='middle' fill='%23A09B8C' font-size='11'%3E(Run notebook to generate plot)%3C/text%3E%3C/svg%3E" alt="Correlation Heatmap">
+                <p class="figure-caption">Figure 2b: Feature correlation heatmap showing relationships between variables</p>
+            </div>
+            
+            <p>The figure above presents a correlation heatmap that reveals the relationships between all features simultaneously. Several patterns emerge from this visualization.</p>
+            
+            <p>First, Gold Difference and Experience Difference are highly correlated with each other (r = 0.89), which makes intuitive sense. Teams that are ahead in gold typically have more kills and farm, both of which also grant experience. This high correlation suggests potential multicollinearity, though both features are retained because they capture slightly different aspects of team advantage.</p>
+            
+            <p>Second, Kills and Assists show a very strong positive correlation (r = 0.81), reflecting that team fights generate both statistics simultaneously. Kills also correlate strongly with Gold Difference (r = 0.65) and Experience Difference (r = 0.58), confirming that combat success translates directly into resource advantages. Conversely, Deaths show strong negative correlations with both Gold Difference (r = -0.64) and Experience Difference (r = -0.58), highlighting how dying sets teams behind in multiple dimensions.</p>
+            
+            <p>Third, an interesting pattern emerges with MinionsKilled (CS): it correlates negatively with Deaths (r = -0.47), suggesting that players who die frequently also miss farm opportunities. This creates a double penalty that compounds their disadvantage. MinionsKilled also shows moderate positive correlations with Gold Difference (r = 0.45) and Experience Difference (r = 0.45), reinforcing the importance of consistent farming.</p>
+            
+            <p>Last, First Blood shows moderate correlations with Gold Difference (r = 0.38) and Kills (r = 0.27), but weaker correlations with other features, indicating it captures unique early-game information not fully redundant with other combat statistics. Dragons and Heralds show relatively weak correlations with each other (r = 0.02), suggesting that securing one objective does not necessarily predict securing the other. Teams may prioritize different sides of the map based on their composition and game state.</p>
+        </section>
+        
+        <!-- Methods -->
+        <section id="methods" class="section">
+            <h2>3. Methods</h2>
+            
+            <h3>3.1 Feature Engineering</h3>
+            <p>Beyond the raw features provided in the dataset, this research created several derived features that capture strategic concepts not directly measured. These engineered features combine multiple raw statistics to represent higher-level game states that experienced players would recognize as important.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">df_model = df.copy()
+
+# KD Ratio
+df_model['blueKDRatio'] = df_model['blueKills'] / (df_model['blueDeaths'] + 1)
+
+# Objective Control
+df_model['blueObjectiveControl'] = df_model['blueDragons'] + df_model['blueHeralds']
+
+# CS Difference
+df_model['blueCSDiff'] = df_model['blueTotalMinionsKilled'] - df_model['redTotalMinionsKilled']
+
+print("Engineered Features Created:")
+print("  - blueKDRatio")
+print("  - blueObjectiveControl")
+print("  - blueCSDiff")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Engineered Features Created:
+  - blueKDRatio
+  - blueObjectiveControl
+  - blueCSDiff</pre>
+            </div>
+            
+            <p>The KD Ratio (Kill-to-Death Ratio) is calculated as kills divided by deaths plus one, where the addition of one prevents division by zero for players with no deaths. This metric captures combat efficiency in a way that neither kills nor deaths alone can express. A team with 5 kills and 2 deaths has a KD ratio of 1.67, indicating they are winning fights, while a team with 5 kills and 8 deaths has a ratio of 0.56, indicating they are losing trades even though they have secured some kills. In practical gameplay, a high KD ratio often reflects better positioning, coordination, and decision-making in fights.</p>
+            
+            <p>The Objective Control score simply sums the number of dragons and heralds secured. While the dataset already contains these features separately, combining them makes conceptual sense because both represent successful neutral objective takes. A team that has secured both a dragon and a herald has demonstrated map control and the ability to coordinate around major objectives, which typically requires winning nearby fights or gaining vision advantages.</p>
+            
+            <p>The CS Difference measures the gap in minion kills between the two teams. Unlike Gold Difference, which combines all sources of income, CS Difference specifically captures lane performance. A positive CS Difference indicates that the team is winning the farming battle, successfully last-hitting minions while potentially denying the enemy through pressure or kills.</p>
+            
+            <div class="figure">
+                <img src="https://wiki.leagueoflegends.com/en-us/images/Minions.png?b2685" alt="Minions">
+                <p class="figure-caption">Figure: League of Legends minions</p>
+            </div>
+            
+            <p>In a typical game, each minion is worth approximately 20 gold, so a 20 CS advantage translates to roughly 400 gold. This metric reflects deeper aspects of lane control beyond simple gold accumulation. In the early game, minions deal substantial damage that can determine trade outcomes, as a full minion wave at level 1 can output more damage than a champion. Players who maintain CS advantages typically have better wave control, allowing them to build large waves that crash into enemy towers. This creates windows for roaming to objectives or other lanes while opponents are forced to farm under tower. A consistent CS lead therefore indicates not just mechanical proficiency in last-hitting, but also superior understanding of wave manipulation and lane priority, both of which translate into map-wide advantages.</p>
+            
+            <h3>3.2 Feature Selection</h3>
+            <p>From the available features, I selected 14 for inclusion in the final model. This selection was guided by several principles: avoiding redundancy between highly correlated features, ensuring each feature has clear strategic meaning, and including both raw statistics and engineered features.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">selected_features = [
+    # Combat statistics
+    'blueKills', 'blueDeaths', 'blueAssists',
+    # Economic differences
+    'blueGoldDiff', 'blueExperienceDiff',
+    # Objective control
+    'blueDragons', 'blueHeralds', 'blueFirstBlood', 'blueTowersDestroyed',
+    # Engineered features
+    'blueKDRatio', 'blueObjectiveControl', 'blueCSDiff',
+    # Farming statistics
+    'blueTotalMinionsKilled', 'blueTotalJungleMinionsKilled',
+]
+
+X = df_model[selected_features].copy()
+y = df_model['blueWins'].copy()
+
+print(f"Feature Matrix: {X.shape[0]} samples × {X.shape[1]} features")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Feature Matrix: 9879 samples × 14 features</pre>
+            </div>
+            
+            <p>The selection of these 14 features reflects careful consideration of both statistical properties and game knowledge. I included Gold Difference and Experience Difference because they are the strongest predictors based on correlation analysis, capturing the fundamental resource advantages that determine which team can afford better items and has access to stronger abilities. Kills, Deaths, and Assists are included because they represent direct combat outcomes, though as discussed earlier, their value lies primarily in the gold and experience they generate.</p>
+            
+            <p>I chose to include Dragon, Herald, First Blood, and Towers Destroyed as separate features rather than aggregating them because they represent distinct strategic choices. Taking Dragon requires coordination with the bottom lane and jungle, while Herald is a top-side objective. A team might secure Dragon but lose Herald, and this information would be lost in a simple aggregate. The engineered features (KD Ratio, Objective Control, CS Difference) provide additional perspectives that combine raw statistics in strategically meaningful ways.</p>
+            
+            <p>I deliberately excluded several features to avoid redundancy and multicollinearity. Total Gold was excluded because Gold Difference captures the same information relative to the opponent and showed higher correlation with winning. Wards Placed and Wards Destroyed were excluded because they showed very low correlation with match outcomes in preliminary analysis, possibly because vision control affects outcomes through other mechanisms (enabling kills, preventing deaths) that are already captured. Average Level was excluded because it is highly correlated with Experience Difference, and the difference form is more predictive. Finally, Gold Per Minute and CS Per Minute were excluded because they are deterministic functions of Total Gold and Total Minions Killed given the fixed 10-minute timestamp.</p>
+            
+            <h3>3.3 Data Preprocessing</h3>
+            <p>The data is split into training and test sets using an 80-20 ratio, with stratification to ensure both sets maintain the same class distribution. Feature standardization is then applied to the training set and used to transform both sets.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Train-test split with stratification
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.2, random_state=42, stratify=y
+)
+
+print(f"Training Set: {X_train.shape[0]} samples (Win Rate: {y_train.mean():.2%})")
+print(f"Test Set:     {X_test.shape[0]} samples (Win Rate: {y_test.mean():.2%})")
+
+# Feature standardization
+scaler = StandardScaler()
+X_train_scaled = pd.DataFrame(scaler.fit_transform(X_train), columns=selected_features)
+X_test_scaled = pd.DataFrame(scaler.transform(X_test), columns=selected_features)</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Training Set: 7903 samples (Win Rate: 49.91%)
+Test Set:     1976 samples (Win Rate: 49.90%)</pre>
+            </div>
+            
+            <p>Stratification in the train-test split ensures that both the training and test sets have approximately 50% win rates, matching the overall dataset distribution. This is important because if the split happened to put most wins in the training set, the model might overfit to that distribution and perform poorly on the differently-distributed test set.</p>
+            
+            <p>Feature standardization transforms each feature to have zero mean and unit variance. This preprocessing step is essential for algorithms like Logistic Regression and Support Vector Machines, where the optimization process is sensitive to feature scales. For example, Gold Difference might range from -10,000 to +10,000, while First Blood is always 0 or 1. Without standardization, the larger-magnitude features would dominate the optimization. Tree-based methods like Decision Trees and Random Forests are invariant to feature scaling, but standardizing does not harm their performance and allows consistent preprocessing across all models.</p>
+            
+            <h3>3.4 Models</h3>
+            <p>I implemented six classification models representing different machine learning paradigms. Each model has distinct strengths and makes different assumptions about the data, allowing us to assess which approach best captures the patterns in early-game statistics.</p>
+            
+            <h4>3.4.1 Logistic Regression (L2)</h4>
+            <p>Logistic Regression is a linear classification algorithm that models the probability of the positive class using the sigmoid function. For a feature vector x, the predicted probability is given by:</p>
+            
+            <div class="equation">
+                \[ P(y=1|x) = \frac{1}{1 + e^{-(\beta_0 + \beta_1 x_1 + ... + \beta_n x_n)}} \]
+            </div>
+            
+            <p>The model parameters β are learned by maximizing the likelihood of the observed data, with an L2 regularization term added to prevent overfitting. L2 regularization penalizes large coefficient values, encouraging the model to find solutions where no single feature dominates the prediction.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model 1: Logistic Regression with L2 regularization
+log_reg = LogisticRegression(penalty='l2', C=1.0, solver='lbfgs', max_iter=1000, random_state=42)
+log_reg.fit(X_train_scaled, y_train)
+results['Logistic Regression'] = evaluate_model(log_reg, X_train_scaled, X_test_scaled, y_train, y_test)
+
+print("Logistic Regression (L2):")
+print(f"  Train Accuracy: {results['Logistic Regression']['train_acc']:.4f}")
+print(f"  Test Accuracy:  {results['Logistic Regression']['test_acc']:.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Logistic Regression (L2):
+  Train Accuracy: 0.7359
+  Test Accuracy:  0.7242</pre>
+            </div>
+            
+            <h4>3.4.2 Logistic Regression with L1 Regularization (Lasso)</h4>
+            <p>L1 regularization differs from L2 by penalizing the absolute value of coefficients rather than their squares. This has the important property of driving some coefficients exactly to zero, effectively performing automatic feature selection. Features with zero coefficients are excluded from the model entirely, which can improve interpretability and sometimes generalization.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model 2: Logistic Regression with L1 (Lasso)
+log_reg_l1 = LogisticRegression(penalty='l1', C=1.0, solver='saga', max_iter=1000, random_state=42)
+log_reg_l1.fit(X_train_scaled, y_train)
+results['Logistic Regression (L1)'] = evaluate_model(log_reg_l1, X_train_scaled, X_test_scaled, y_train, y_test)
+
+print("Logistic Regression (L1):")
+print(f"  Train Accuracy: {results['Logistic Regression (L1)']['train_acc']:.4f}")
+print(f"  Test Accuracy:  {results['Logistic Regression (L1)']['test_acc']:.4f}")
+
+l1_coefs = pd.Series(log_reg_l1.coef_[0], index=selected_features)
+n_selected = (l1_coefs != 0).sum()
+print(f"  Features selected: {n_selected}/{len(selected_features)}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Logistic Regression (L1):
+  Train Accuracy: 0.7362
+  Test Accuracy:  0.7242
+  Features selected: 13/14</pre>
+            </div>
+            
+            <h4>3.4.3 Decision Tree</h4>
+            <p>Decision Trees learn a series of if-then rules that recursively partition the feature space. At each node, the algorithm selects the feature and threshold that best separates the classes, using GINI impurity as the splitting criterion:</p>
+            
+            <div class="equation">
+                \[ \text{GINI} = 1 - \sum_{i=1}^{C} p_i^2 \]
+            </div>
+            
+            <p>where p<sub>i</sub> is the proportion of samples belonging to class i. A GINI value of 0 means a pure node where all samples belong to one class, while 0.5 indicates maximum uncertainty in a binary classification setting. The tree grows by repeatedly choosing splits that produce the purest possible child nodes.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model 3: Decision Tree
+decision_tree = DecisionTreeClassifier(
+    criterion='gini', max_depth=5, min_samples_split=50, min_samples_leaf=20, random_state=42
+)
+decision_tree.fit(X_train, y_train)
+results['Decision Tree'] = evaluate_model(decision_tree, X_train, X_test, y_train, y_test)
+
+print("Decision Tree:")
+print(f"  Train Accuracy: {results['Decision Tree']['train_acc']:.4f}")
+print(f"  Test Accuracy:  {results['Decision Tree']['test_acc']:.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Decision Tree:
+  Train Accuracy: 0.7378
+  Test Accuracy:  0.7196</pre>
+            </div>
+            
+            <p>The hyperparameters were chosen to prevent overfitting. Setting maximum depth to 5 limits how deep the tree can grow, stopping it from memorizing training data. The minimum samples per split (50) and per leaf (20) ensure that decisions are based on enough observations rather than noise.</p>
+            
+            <h4>3.4.4 Random Forest</h4>
+            <p>Random Forest builds multiple decision trees and combines their predictions through majority voting. Each tree is trained on a random sample of the data and considers only a random subset of features at each split. This randomness makes the individual trees different from each other, and averaging their predictions reduces overfitting compared to a single decision tree.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model 4: Random Forest
+random_forest = RandomForestClassifier(
+    n_estimators=100, max_depth=10, min_samples_split=20, random_state=42, n_jobs=-1
+)
+random_forest.fit(X_train, y_train)
+results['Random Forest'] = evaluate_model(random_forest, X_train, X_test, y_train, y_test)
+
+print("Random Forest:")
+print(f"  Train Accuracy: {results['Random Forest']['train_acc']:.4f}")
+print(f"  Test Accuracy:  {results['Random Forest']['test_acc']:.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Random Forest:
+  Train Accuracy: 0.7884
+  Test Accuracy:  0.7201</pre>
+            </div>
+            
+            <h4>3.4.5 Gradient Boosting</h4>
+            <p>Gradient Boosting builds trees sequentially, where each new tree attempts to correct the errors made by the previous ensemble. Unlike Random Forest which builds trees independently, Gradient Boosting uses gradient descent to optimize a loss function iteratively.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model 5: Gradient Boosting
+gradient_boosting = GradientBoostingClassifier(
+    n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42
+)
+gradient_boosting.fit(X_train, y_train)
+results['Gradient Boosting'] = evaluate_model(gradient_boosting, X_train, X_test, y_train, y_test)
+
+print("Gradient Boosting:")
+print(f"  Train Accuracy: {results['Gradient Boosting']['train_acc']:.4f}")
+print(f"  Test Accuracy:  {results['Gradient Boosting']['test_acc']:.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Gradient Boosting:
+  Train Accuracy: 0.7495
+  Test Accuracy:  0.7176</pre>
+            </div>
+            
+            <h4>3.4.6 Support Vector Machine (RBF Kernel)</h4>
+            <p>Support Vector Machines find the optimal boundary that separates the two classes with the largest possible margin. The RBF kernel transforms the data into a higher-dimensional space where linear separation becomes possible:</p>
+            
+            <div class="equation">
+                \[ K(x, x') = \exp\left(-\gamma ||x - x'||^2\right) \]
+            </div>
+            
+            <p>The kernel measures how similar two data points are, with γ controlling how quickly similarity drops as points get farther apart.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model 6: SVM with RBF kernel
+svm_model = SVC(kernel='rbf', C=1.0, gamma='scale', probability=True, random_state=42)
+svm_model.fit(X_train_scaled, y_train)
+results['SVM (RBF)'] = evaluate_model(svm_model, X_train_scaled, X_test_scaled, y_train, y_test)
+
+print("SVM (RBF):")
+print(f"  Train Accuracy: {results['SVM (RBF)']['train_acc']:.4f}")
+print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>SVM (RBF):
+  Train Accuracy: 0.7420
+  Test Accuracy:  0.7176</pre>
+            </div>
+            
+            <h3>3.5 Hyperparameter Tuning</h3>
+            
+            <div class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='320' viewBox='0 0 800 320'%3E%3Crect fill='%230A1428' width='800' height='320'/%3E%3Ctext x='400' y='155' text-anchor='middle' fill='%23C8AA6E' font-size='14'%3EFigure 3: Hyperparameter Tuning Experiments%3C/text%3E%3Ctext x='400' y='180' text-anchor='middle' fill='%23A09B8C' font-size='11'%3ERandom Forest n_estimators (left) | Gradient Boosting max_depth (right)%3C/text%3E%3C/svg%3E" alt="Hyperparameter Tuning">
+                <p class="figure-caption">Figure 3: Hyperparameter tuning experiments for Random Forest and Gradient Boosting</p>
+            </div>
+            
+            <p>The hyperparameter tuning experiments reveal important insights about model behavior. For Random Forest, increasing the number of estimators beyond 50 provides diminishing returns. The test accuracy plateaus while training accuracy continues to rise slightly, suggesting that 100 estimators is a reasonable choice that balances accuracy with computational cost.</p>
+            
+            <p>For Gradient Boosting, the max_depth parameter shows a classic overfitting pattern. At max_depth=2, both training and test accuracy are similar (around 72-74%), indicating the model is too simple. As max_depth increases, training accuracy rises rapidly and reaches nearly 99% at depth=10, but test accuracy peaks around depth=3-4 and then declines. This demonstrates the bias-variance tradeoff: shallow trees underfit while deep trees overfit. The optimal depth of 3 balances these competing concerns.</p>
+        </section>
+        
+        <!-- Results -->
+        <section id="results" class="section">
+            <h2>4. Results</h2>
+            
+            <h3>4.1 Model Performance Comparison</h3>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr><th>Model</th><th>Train Acc</th><th>Test Acc</th><th>Precision</th><th>Recall</th><th>F1</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Logistic Regression (L2)</td><td>0.7359</td><td>0.7242</td><td>0.7198</td><td>0.7323</td><td>0.7260</td></tr>
+                        <tr><td>Logistic Regression (L1)</td><td>0.7362</td><td>0.7242</td><td>0.7190</td><td>0.7343</td><td>0.7265</td></tr>
+                        <tr><td>Decision Tree</td><td>0.7378</td><td>0.7196</td><td>0.7333</td><td>0.6886</td><td>0.7103</td></tr>
+                        <tr><td>Random Forest</td><td>0.7884</td><td>0.7201</td><td>0.7194</td><td>0.7201</td><td>0.7197</td></tr>
+                        <tr><td>Gradient Boosting</td><td>0.7495</td><td>0.7176</td><td>0.7179</td><td>0.7150</td><td>0.7165</td></tr>
+                        <tr><td>SVM (RBF)</td><td>0.7420</td><td>0.7176</td><td>0.7206</td><td>0.7089</td><td>0.7147</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>The results reveal a striking finding: all six models achieve similar test accuracy around 72%, despite their fundamentally different approaches. The gap between the best (Logistic Regression at 72.42%) and worst (Gradient Boosting and SVM at 71.76%) performers is less than 1 percentage point. This convergence suggests that we are approaching a ceiling imposed by the data itself rather than model limitations.</p>
+            
+            <p>The training-test accuracy gaps tell an important story about overfitting. Logistic Regression shows the smallest gap (1.2 percentage points), indicating it generalizes well without memorizing training data. Decision Tree has a similarly small gap (1.8 points). Random Forest shows the largest gap (6.8 points), suggesting it captures some noise in the training data that does not generalize. Gradient Boosting (3.3 points) and SVM (2.4 points) fall in between.</p>
+            
+            <h3>4.2 ROC Curves</h3>
+            
+            <div class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='600' height='480' viewBox='0 0 600 480'%3E%3Crect fill='%230A1428' width='600' height='480'/%3E%3Ctext x='300' y='235' text-anchor='middle' fill='%23C8AA6E' font-size='14'%3EFigure 4: ROC Curves for All Models%3C/text%3E%3Ctext x='300' y='260' text-anchor='middle' fill='%23A09B8C' font-size='11'%3EAUC scores range from 0.71 to 0.81%3C/text%3E%3C/svg%3E" alt="ROC Curves">
+                <p class="figure-caption">Figure 4: ROC curves showing discriminative ability of all six models</p>
+            </div>
+            
+            <p>This figure presents the Receiver Operating Characteristic (ROC) curves for all six models. The ROC curve plots the True Positive Rate against the False Positive Rate at various classification thresholds, providing a view of model performance across all possible decision boundaries.</p>
+            
+            <p>All models significantly outperform random classification (the diagonal line), with AUC scores ranging from 0.71 to 0.81. The Logistic Regression models achieve the highest AUC scores (around 0.806), indicating excellent discriminative ability. This means that when presented with one winning game and one losing game, the model correctly ranks them approximately 80% of the time.</p>
+            
+            <p>The Decision Tree shows notably lower AUC (0.71) compared to other models, likely because it tends to make more confident but sometimes incorrect predictions. The ensemble methods (Random Forest and Gradient Boosting) achieve similar AUC scores to Logistic Regression, confirming that model complexity does not substantially improve discriminative performance for this problem.</p>
+            
+            <h3>4.3 Feature Importance</h3>
+            
+            <div class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='800' height='380' viewBox='0 0 800 380'%3E%3Crect fill='%230A1428' width='800' height='380'/%3E%3Ctext x='400' y='185' text-anchor='middle' fill='%23C8AA6E' font-size='14'%3EFigure 5: Feature Importance Analysis%3C/text%3E%3Ctext x='400' y='210' text-anchor='middle' fill='%23A09B8C' font-size='11'%3ELogistic Regression Coefficients (left) | Random Forest Importance (right)%3C/text%3E%3C/svg%3E" alt="Feature Importance">
+                <p class="figure-caption">Figure 5: Feature importance from Logistic Regression coefficients and Random Forest</p>
+            </div>
+            
+            <p>This figure presents feature importance from two different perspectives, and the consistency between them strengthens our confidence in the findings. Gold Difference emerges as the dominant predictor in both methods, with the highest Logistic Regression coefficient (over 1.0) and the highest Random Forest importance (0.27). This makes intuitive sense: gold is the fundamental currency of League of Legends, enabling the purchase of items that increase damage, survivability, and utility. A 1,000 gold lead might allow a player to complete a major item component before their opponent, creating a power spike that compounds into further advantages.</p>
+            
+            <p>Experience Difference ranks second in both methods, confirming that level advantages are nearly as important as gold. Each level provides increased base statistics (health, damage, armor) and often unlocks new or upgraded abilities. A level advantage is particularly impactful in the early game, where a level 6 champion with access to their ultimate ability can often defeat a level 5 champion who lacks theirs.</p>
+            
+            <p>The KD Ratio shows high importance in Random Forest (approximately 0.16, third highest) but has a smaller coefficient in Logistic Regression. This discrepancy suggests that KD Ratio's predictive power may come through interactions with other features rather than a simple linear relationship. For example, a high KD Ratio combined with high CS (indicating both fighting and farming success) might be particularly predictive, and Random Forest can capture such interactions while Logistic Regression cannot.</p>
+            
+            <p>Interestingly, several features show negative coefficients in Logistic Regression when controlling for other variables. CS Difference and raw Kills both have negative coefficients, which seems counterintuitive at first. However, this reveals an important insight: once we account for Gold Difference and Experience Difference, additional kills or CS that do not translate into these resource advantages may indicate inefficient play. A team might have more kills but still lose if those kills came at the cost of deaths, missed objectives, or poor map positioning. This explains why professional teams often prioritize clean, low-risk plays over aggressive trades that might generate kills but sacrifice other advantages.</p>
+            
+            <h3>4.4 Confusion Matrix</h3>
+            
+            <div class="figure">
+                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='500' height='400' viewBox='0 0 500 400'%3E%3Crect fill='%230A1428' width='500' height='400'/%3E%3Ctext x='250' y='195' text-anchor='middle' fill='%23C8AA6E' font-size='14'%3EFigure 6: Confusion Matrix (Random Forest)%3C/text%3E%3Ctext x='250' y='220' text-anchor='middle' fill='%23A09B8C' font-size='11'%3E713 TN (36.1%25) | 277 FP (14.0%25) | 276 FN (14.0%25) | 710 TP (35.9%25)%3C/text%3E%3C/svg%3E" alt="Confusion Matrix">
+                <p class="figure-caption">Figure 6: Confusion matrix for Random Forest model</p>
+            </div>
+            
+            <p>This figure displays the confusion matrix for the Random Forest model, showing how predictions map to actual outcomes. The model correctly classified 713 Red wins (36.1%) and 710 Blue wins (35.9%), achieving an overall accuracy of 72%. The false predictions are nearly symmetric: 277 games (14.0%) where Red actually won but the model predicted Blue, and 276 games (14.0%) where Blue actually won but the model predicted Red.</p>
+            
+            <p>This symmetry indicates that the model does not have a systematic bias toward predicting either team. The balanced error distribution reflects the balanced nature of the underlying game, where neither side has an inherent advantage. In practical terms, when the model predicts a Blue victory, it is correct about 72% of the time, and it correctly identifies about 72% of all actual Blue victories.</p>
+        </section>
+        
+        <!-- Discussion -->
+        <section id="discussion" class="section">
+            <h2>5. Discussion</h2>
+            
+            <h3>5.1 Strategic Insights</h3>
+            <p>The quantitative findings from the model analysis translate directly into actionable strategic recommendations for players. By examining specific game conditions and their associated win rates, we can identify which early-game factors provide the largest competitive advantages.</p>
+            
+            <h4>Gold Quintile Analysis</h4>
+            <div class="output">
+                <pre>1. Gold Difference Impact by Quintile
+   Bottom Quintile (< -1586 gold): 13.8% win rate
+   Top Quintile (> 1596 gold):     86.6% win rate
+   → Swing: 72.8 percentage points</pre>
+            </div>
+            
+            <p>The gold quintile analysis reveals a dramatic relationship between early-game gold leads and victory. Teams in the bottom quintile (more than 1,586 gold behind at 10 minutes) win only 13.8% of their games, while teams in the top quintile (more than 1,596 gold ahead) win 86.6%. This 73 percentage point swing represents the single largest factor I observed, confirming that gold is indeed the fundamental resource that drives victory.</p>
+            
+            <h4>First Blood Impact</h4>
+            <div class="output">
+                <pre>2. First Blood
+   Without First Blood: 39.7% win rate
+   With First Blood:    59.9% win rate
+   → Advantage: +20.2 percentage points</pre>
+            </div>
+            
+            <p>First Blood, the first kill of the game, provides a 20.2 percentage point increase in win rate—from 39.7% without it to 59.9% with it. This effect is substantial and reflects several mechanisms. First Blood grants 400 gold instead of the usual 300, providing an immediate economic advantage. It also creates a level advantage, as the killer gains experience while the victim returns to base. Perhaps equally important is the psychological impact: securing First Blood often puts the enemy laner "on tilt," causing them to play more cautiously or make desperate attempts to recover that lead to further deaths.</p>
+            
+            <div class="figure">
+                <img src="https://static.wixstatic.com/media/e1e14b_c65b379e8a9d4a6b965e339d343b6d2d~mv2.jpg/v1/fill/w_570,h_168,al_c,q_80,enc_avif,quality_auto/e1e14b_c65b379e8a9d4a6b965e339d343b6d2d~mv2.jpg" alt="First Blood">
+                <p class="figure-caption">First Blood notification in game</p>
+            </div>
+            
+            <p>The practical implication is that teams should seriously consider their First Blood potential during champion select and early-game planning. A team composition with strong level 1 or level 2 fighting ability (such as a Leona support with crowd control or a Lee Sin jungle known for early ganks) should look for opportunities to force early fights. Conversely, teams with scaling compositions that are weak early should invest in vision and cautious positioning to avoid giving away First Blood.</p>
+            
+            <h4>Dragon Control</h4>
+            <div class="output">
+                <pre>3. Dragon Control
+   No Dragon: 41.9% win rate
+   1 Dragon:  64.1% win rate
+   → Advantage: +22.2 percentage points</pre>
+            </div>
+            
+            <p>Dragon control shows a meaningful 22.2 percentage point advantage, with teams securing a dragon winning 64.1% of games compared to 41.9% for teams without one. In League of Legends, Dragon spawns at 5:00 and provides team-wide buffs that stack with subsequent dragons. The first dragon typically grants one of four elemental buffs: Infernal (damage), Mountain (armor and magic resist), Ocean (health regeneration), or Cloud (movement speed).</p>
+            
+            <div class="figure">
+                <img src="https://miro.medium.com/v2/0*EXgif1MRs0VuOhlG" alt="Dragon">
+                <p class="figure-caption">Dragon Soul buffs in League of Legends</p>
+            </div>
+            
+            <p>However, the dragon effect should be interpreted carefully. Securing Dragon requires winning or avoiding fights in the bottom side of the map, establishing vision control, and having enough health to survive the dragon's attacks. Teams that successfully take Dragon have likely already established advantages in these areas, so some of the 22% win rate increase may reflect correlation rather than causation. The dragon itself is valuable, but the ability to take it signals broader team strength.</p>
+            
+            <h4>Herald Control</h4>
+            <div class="output">
+                <pre>4. Herald Control
+   No Herald: 47.7% win rate
+   Herald:    59.5% win rate
+   → Advantage: +11.8 percentage points</pre>
+            </div>
+            
+            <p>The Rift Herald shows a smaller but still significant 11.8 percentage point advantage. Herald spawns at 8:00 in the top side of the map and can be summoned to crash into enemy towers, dealing substantial damage or destroying them outright. Unlike Dragon's permanent team-wide buff, Herald provides a one-time strategic advantage: tower plates worth gold and map pressure.</p>
+            
+            <div class="figure">
+                <img src="https://i2.wp.com/lol.timsevenhuysen.com/wp-content/uploads/2019/06/Rift-Herald.png?fit=801%2C272&ssl=1" alt="Rift Herald">
+                <p class="figure-caption">Rift Herald objective</p>
+            </div>
+            
+            <p>The lower impact compared to Dragon is somewhat surprising, as many players consider Herald the more valuable early objective. One explanation is that Dragon fights tend to be more decisive—they often result in multiple kills that compound the advantage—while Herald can sometimes be taken for free when the enemy team is focused elsewhere. A team might take Herald while losing the map overall, which would dilute the observed win rate advantage.</p>
+            
+            <h4>Both Objectives</h4>
+            <div class="output">
+                <pre>5. Both Objectives (Dragon + Herald)
+   Neither objective: 39.9% win rate
+   Both objectives:   73.5% win rate
+   → Advantage: +33.7 percentage points</pre>
+            </div>
+            
+            <p>Teams that secure both Dragon and Herald by the 10-minute mark win 73.5% of their games, compared to 39.9% for teams with neither, a massive 33.7 percentage point swing. This finding emphasizes the importance of objective-focused play in the early game. Securing both objectives requires map-wide dominance: winning or avoiding fights in multiple areas, maintaining vision control, and coordinating rotations between lanes.</p>
+            
+            <p>In practical terms, a team should develop a clear plan for contesting both objectives. If the bottom lane has priority (is in a position to move first), the team should set up vision for Dragon before it spawns at 5:00. If the top lane is stronger, the team might contest Herald at 8:00 instead. The worst outcome is losing both objectives, which suggests either poor lane performance or inability to coordinate as a team.</p>
+            
+            <h4>Kill Differential</h4>
+            <div class="output">
+                <pre>6. Kill Differential
+   Behind 3+ kills: 18.8% win rate
+   Ahead 3+ kills:  83.9% win rate
+   → Swing: 65.1 percentage points</pre>
+            </div>
+            
+            <p>Kill differential shows the second-largest impact after gold, with a 65.1 percentage point difference between being ahead by 3+ kills (83.9% win rate) and behind by 3+ kills (18.8% win rate). This finding reinforces the importance of combat outcomes, though as discussed earlier, the value of kills comes primarily through the gold and experience they generate.</p>
+            
+            <p>The practical implication is nuanced. Players should not avoid fights at all costs, as kills do provide significant advantages. However, they should be selective about when to fight. A fight with a 60% chance of winning might not be worth taking if losing it would create a large kill deficit. Conversely, a fight with only a 40% chance of winning might be worthwhile if the team is already behind and needs to take risks to get back into the game.</p>
+            
+            <h3>5.2 Recommended Early-Game Strategy</h3>
+            <p>Synthesizing the quantitative findings above, I propose a prioritized strategic framework for the first 10 minutes of a League of Legends match.</p>
+            
+            <p>The first and most important priority is maximizing gold income through consistent farming. The correlation between gold advantage and victory is overwhelming, and unlike kills that depend on opponent mistakes, farming is entirely within a player's control. A skilled player should aim for at least 7-8 CS per minute, which translates to approximately 70-80 minions by the 10-minute mark. Missing minions due to poor last-hitting, roaming at inappropriate times, or dying and losing farm is extremely costly.</p>
+            
+            <p>The second priority is securing First Blood when opportunities arise. The 20 percentage point win rate increase is substantial, and First Blood often comes from coordinated plays in the first few minutes when players are still walking to lane or establishing positions. Teams with strong early-game champions should look for level 1 invades (entering the enemy jungle as a group to fight) or level 2 all-ins (attacking when the first player reaches level 2 and has an ability advantage).</p>
+            
+            <p>Third, teams should prioritize Dragon over Herald when both are available. The data shows Dragon provides nearly double the win rate advantage (22% vs 12%), likely because Dragon fights are more decisive and the buffs are permanent. Teams should establish bot lane priority before Dragon spawns at 5:00 and use this advantage to contest or take the objective.</p>
+            
+            <p>Fourth, teams should minimize unnecessary deaths. The strong negative correlation between deaths and winning (-0.34) indicates that dying is almost as harmful as killing is beneficial. Players should avoid solo deaths from ganks by warding properly, avoid tower dives that are not certain to succeed, and avoid chasing enemies into unwarded territory where they might be ambushed.</p>
+            
+            <p>Finally, teams should recognize when they are behind and adjust their strategy accordingly. A team that is down 1,500 gold at 10 minutes has only a 14% chance of winning if they continue playing normally. Taking calculated risks, contesting objectives, forcing fights in favorable terrain, or making cross-map plays, becomes necessary even though these plays might fail. The key is to recognize that playing passively when behind leads to almost certain defeat.</p>
+            
+            <h3>5.3 Limitations of the Model: Why approximately 72% Accuracy</h3>
+            <p>The models plateau around 72% accuracy, which raises the natural question of why perfect prediction is not possible. Understanding this ceiling provides insight into both the limitations of early-game statistics and the nature of League of Legends as a competitive game.</p>
+            
+            <p>The most fundamental explanation is that games are not determined at 10 minutes. The typical match lasts 25-40 minutes, leaving substantial time for teams to execute strategies, make mistakes, or adapt to circumstances. A team with a 2,000 gold lead at 10 minutes has a significant advantage, but that advantage must be converted through successful teamfights, objective takes, and strategic rotations. Comebacks happen regularly in League of Legends, with teams recovering from substantial deficits through superior execution in the mid and late game.</p>
+            
+            <p>Second, important information is missing from the dataset. Champion compositions are not included, despite having enormous impact on game outcomes. Some team compositions are designed to sacrifice early-game strength for late-game power, intentionally accepting deficits in the first 10 minutes. A team with late-game scaling champions like Kayle or Kassadin might be expected to lose the early game but win the match overall. Not to say some of the players will choose the champion that can tear down the enemy's tower and Nexus more quickly, like Sion or Tryndamere. Without this information, the model cannot distinguish between a team that is behind schedule from one that is on schedule.</p>
+            
+            <p>Third, individual player skill varies even within Diamond tier. A player having an exceptional game might carry their team despite early deficits, while a player having a bad day might throw away early advantages. Sometimes when players drop out of the game (AFK), the situation will become 4 vs 5, which provides huge disadvantage to the team. These human factors are inherently unpredictable from aggregate statistics.</p>
+            
+            <p>The 72% accuracy should therefore be interpreted positively: it suggests that early-game performance explains a substantial portion of match outcomes, enough to provide actionable strategic insights. The remaining 28% represents the skill, adaptability, and sometimes luck that make League of Legends an exciting competitive game rather than a deterministic exercise.</p>
+            
+            <h3>5.4 Model Selection Discussion</h3>
+            <p>Despite testing complex models like Random Forests with 100 trees and Support Vector Machines with RBF kernels, simple Logistic Regression performs equally well. This finding has important implications for both the nature of the prediction problem and the practical deployment of such models.</p>
+            
+            <p>The success of linear models suggests that the relationship between early-game statistics and winning is approximately linear. Gold advantage directly translates to win probability without complex interactions or threshold effects. This makes intuitive sense: in League of Legends, advantages compound smoothly. There is no magic number where being 1,499 gold ahead is safe but 1,500 gold ahead is dangerous. The linear relationship is a natural consequence of the game's design.</p>
+            
+            <p>The interpretability advantage of Logistic Regression is substantial. The model coefficients directly indicate how each feature affects win probability, enabling the strategic insights discussed above. Random Forest importance scores provide similar information but lack the directional component: they tell us that Gold Difference is important, but not whether more gold is better (obvious in this case, but not always).</p>
+            
+            <p>For practical applications, I recommend Logistic Regression with L1 regularization as the preferred model. It achieves the best cross-validation accuracy, performs automatic feature selection to identify the most important variables, provides interpretable coefficients for strategic analysis, and runs quickly enough for real-time applications. While Random Forest, Gradient Boosting, and SVM are valuable as validation that more complex models do not substantially improve accuracy, the simpler model is preferred when performance is equivalent.</p>
+        </section>
+        
+        <!-- Conclusion -->
+        <section id="conclusion" class="section">
+            <h2>6. Conclusion</h2>
+            <p>This project successfully developed machine learning models to predict League of Legends match outcomes from early-game statistics, achieving approximately 72% accuracy across six different algorithms. The analysis reveals that gold difference is the strongest predictor of victory, with teams in the top gold quintile winning 87% of games compared to just 14% for teams in the bottom quintile. First Blood provides a 20 percentage point win rate advantage, Dragon control adds 22 percentage points, and teams securing both major objectives win 72% of their matches.</p>
+            
+            <p>The practical implications for players are clear. Consistent farming should be the first priority, as gold income is the foundation of all other advantages. First Blood should be actively pursued when team compositions and positioning allow. Dragon should be prioritized over Herald when both are available. Deaths should be minimized through proper vision and risk assessment. And teams that fall behind should recognize the need for calculated aggression rather than passive play.</p>
+            
+            <p>Several machine learning concepts from the course were applied throughout this analysis. Logistic Regression with both L1 and L2 regularization demonstrated the trade-offs between bias and variance, with L1's feature selection capabilities proving particularly valuable for interpretation. Decision Trees illustrated how GINI impurity guides recursive partitioning of feature space, while Random Forests and Gradient Boosting showed how ensemble methods reduce variance through different aggregation strategies. Support Vector Machines with RBF kernels provided a non-linear alternative, confirming that linear models are adequate for this problem. Cross-validation and hyperparameter tuning enabled robust performance estimation that accounts for sampling variability.</p>
+            
+            <p>Future work could extend this analysis in several directions. Incorporating champion composition data would allow the model to account for team power curves and expected early-game performance. Time-series analysis of how advantages evolve throughout the game could identify which leads are most likely to convert to victories. Player-level features such as historical performance or rank could capture individual skill differences. These extensions would likely improve prediction accuracy while providing even more nuanced strategic insights.</p>
+        </section>
+        
+        <!-- References -->
+        <section id="references" class="section references">
+            <h2>7. References</h2>
+            <ol>
+                <li>Fan, M. (2020). <em>League of Legends Diamond Ranked Games (10 min)</em>. Kaggle. <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min">https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min</a></li>
+                <li>Scikit-learn developers. Scikit-learn User Guide. <a href="https://scikit-learn.org/stable/user_guide.html">https://scikit-learn.org/stable/user_guide.html</a></li>
+                <li>Course Materials: STATS 101C Introduction to Statistical Models and Data Mining, UCLA.</li>
+                <li>Course Materials: AOS C111/204 Introduction to Machine Learning for Physical Sciences, UCLA.</li>
+                <li>League of Legends Wiki. <em>Minion</em>. <a href="https://wiki.leagueoflegends.com/en-us/Minion">https://wiki.leagueoflegends.com/en-us/Minion</a></li>
+                <li>League of Legends Wiki. <em>Gold income</em>. <a href="https://wiki.leagueoflegends.com/en-us/Gold_income">https://wiki.leagueoflegends.com/en-us/Gold_income</a></li>
+                <li>League of Legends Wiki. <em>Kill</em>. <a href="https://wiki.leagueoflegends.com/en-us/Kill">https://wiki.leagueoflegends.com/en-us/Kill</a></li>
+                <li>League of Legends Wiki. <em>Dragon Slayer</em>. <a href="https://wiki.leagueoflegends.com/en-us/Dragon_Slayer">https://wiki.leagueoflegends.com/en-us/Dragon_Slayer</a></li>
+                <li>League of Legends Wiki. <em>Dragon pit</em>. <a href="https://wiki.leagueoflegends.com/en-us/Dragon_pit">https://wiki.leagueoflegends.com/en-us/Dragon_pit</a></li>
+            </ol>
+        </section>
+        
+        <footer>
+            <p>© 2025 League of Legends Match Prediction Project | UCLA AOS C111/204</p>
+            <p>Created by Aaron Wen</p>
+        </footer>
+    </div>
+    
+    <script>
+        hljs.highlightAll();
+        
+        function toggleCode(btn) {
+            const content = btn.closest('.code-block').querySelector('.code-content');
+            content.classList.toggle('collapsed');
+            btn.textContent = content.classList.contains('collapsed') ? 'Show' : 'Hide';
+        }
+    </script>
+</body>
+</html>
