@@ -1205,7 +1205,7 @@ plt.show()</code></pre>
             
             <div class="figure">
                 <img src="figure3_hyperparameter_tuning.png" alt="Hyperparameter Tuning">
-                <p class="figure-caption">Figure 3: Hyperparameter tuning experiments for Random Forest and Gradient Boosting</p>
+                <p class="figure-caption">Hyperparameter tuning experiments for Random Forest and Gradient Boosting</p>
             </div>
             
             <p>The hyperparameter tuning experiments reveal important insights about model behavior. For Random Forest, increasing the number of estimators beyond 50 provides diminishing returns. The test accuracy plateaus while training accuracy continues to rise slightly, suggesting that 100 estimators is a reasonable choice that balances accuracy with computational cost.</p>
@@ -1291,7 +1291,7 @@ plt.show()</code></pre>
                 <img src="figure4_model_comparison.png" alt="Model Performance Comparison">
             </div>
             
-            <p>Figure 3 compares training and test accuracy across all six models, revealing several important patterns. All models achieve approximately 72% test accuracy, suggesting this may represent an approximate ceiling for prediction using only 10-minute statistics. The consistency across fundamentally different algorithms, from linear models to tree ensembles to kernel methods, indicates that the remaining 28% of matches are determined by factors not captured in these early-game features, such as champion compositions, individual player skill, or strategic decisions made after the 10-minute mark.</p>
+            <p>THis figure compares training and test accuracy across all six models, revealing several important patterns. All models achieve approximately 72% test accuracy, suggesting this may represent an approximate ceiling for prediction using only 10-minute statistics. The consistency across fundamentally different algorithms, from linear models to tree ensembles to kernel methods, indicates that the remaining 28% of matches are determined by factors not captured in these early-game features, such as champion compositions, individual player skill, or strategic decisions made after the 10-minute mark.</p>
             
             <p>The Logistic Regression models demonstrate excellent generalization, with only a 1.2% gap between training and test accuracy. This small gap indicates that the linear decision boundary is well-suited to this problem, and the regularization is effectively preventing overfitting. Decision Tree shows a similar small gap of 1.8%, benefiting from the depth and sample constraints that prevent it from memorizing the training data.</p>
             
