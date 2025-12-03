@@ -151,7 +151,7 @@
             display: flex;
             flex-direction: column;
             gap: 0.8rem;
-            margin-top: 1.5rem;
+            margin-top: 2.5rem; /* Increased margin since boxes are gone */
             width: 100%;
             max-width: 350px;
         }
@@ -200,54 +200,26 @@
             color: var(--gold);
         }
         
-        .findings-preview {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 0.8rem;
-            margin: 2rem 0;
-            max-width: 700px;
-            width: 100%;
-        }
-        
-        .finding-card {
-            background: rgba(10, 20, 40, 0.6);
-            border: 1px solid rgba(200, 170, 110, 0.15);
-            border-radius: 6px;
-            padding: 1rem;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-        
-        .finding-card:hover {
-            border-color: var(--gold-dark);
-            transform: translateY(-2px);
-        }
-        
-        .finding-card h4 {
-            font-size: 0.75rem;
-            color: var(--gold);
-            margin-bottom: 0.3rem;
-            font-weight: 500;
-        }
-        
-        .finding-value {
-            font-family: 'Cinzel', serif;
-            font-size: 1.4rem;
-            color: var(--blue);
-        }
-        
-        .finding-desc {
-            font-size: 0.65rem;
-            color: var(--gold-light);
-            opacity: 0.6;
-        }
-        
         .footer {
-            margin-top: 2rem;
+            margin-top: 3rem;
             text-align: center;
             font-size: 0.75rem;
             color: var(--gold-light);
             opacity: 0.4;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .footer a {
+            color: inherit;
+            text-decoration: underline;
+            transition: opacity 0.2s;
+        }
+
+        .footer a:hover {
+            opacity: 1;
+            color: var(--gold);
         }
         
         .corner-decoration {
@@ -273,9 +245,6 @@
         }
         
         @media (max-width: 600px) {
-            .findings-preview {
-                grid-template-columns: repeat(2, 1fr);
-            }
             .author-card {
                 flex-direction: column;
                 text-align: center;
@@ -322,29 +291,6 @@
             </div>
         </div>
         
-        <div class="findings-preview">
-            <div class="finding-card">
-                <h4>Gold Diff</h4>
-                <div class="finding-value">r=0.51</div>
-                <div class="finding-desc">Top predictor</div>
-            </div>
-            <div class="finding-card">
-                <h4>First Blood</h4>
-                <div class="finding-value">+20%</div>
-                <div class="finding-desc">Win rate boost</div>
-            </div>
-            <div class="finding-card">
-                <h4>Dragon</h4>
-                <div class="finding-value">+22%</div>
-                <div class="finding-desc">Win advantage</div>
-            </div>
-            <div class="finding-card">
-                <h4>Both Obj.</h4>
-                <div class="finding-value">73%</div>
-                <div class="finding-desc">Win rate</div>
-            </div>
-        </div>
-        
         <div class="buttons">
             <a href="report.html" class="btn btn-primary">
                 <i class="fas fa-book-open"></i> View Full Report
@@ -359,6 +305,7 @@
         
         <footer class="footer">
             <p>Aaron Wen 2025 UCLA AOS C111/204 · Introduction to Machine Learning for Physical Sciences</p>
+            <p>HTML framework and template inspired by <a href="https://wiki.leagueoflegends.com/" target="_blank">League of Legends Wiki</a>.</p>
         </footer>
     </div>
 </body>
