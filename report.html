@@ -546,6 +546,58 @@ for i, col in enumerate(df.columns):
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
+                    <pre><code class="language-python">win_counts = df['blueWins'].value_counts()
+print("Target Variable Distribution:")
+print(f"  Blue Team Wins: {win_counts[1]:,} ({win_counts[1]/len(df):.1%})")
+print(f"  Red Team Wins:  {win_counts[0]:,} ({win_counts[0]/len(df):.1%})")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Target Variable Distribution:
+  Blue Team Wins: 4,930 (49.9%)
+  Red Team Wins:  4,949 (50.1%)</pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">fig, ax1 = plt.subplots(figsize=(8, 6))
+colors = ['#E74C3C', '#3498DB']
+wedges, texts, autotexts = ax1.pie(
+    [win_counts[0], win_counts[1]], 
+    labels=['Red Team Wins', 'Blue Team Wins'],
+    autopct='%1.1f%%',
+    colors=colors,
+    startangle=90,
+    explode=(0.02, 0.02)
+)
+ax1.set_title('Overall Win Distribution', fontweight='bold', fontsize=12)
+for autotext in autotexts:
+    autotext.set_color('white')
+    autotext.set_fontweight('bold')
+
+plt.tight_layout()
+plt.savefig('Overall Win Distribution', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
+            
+            <div class="figure">
+                <img src="Overall Win Distribution.png" alt="Overall Win Distribution">
+            </div>
+            
+            <p>The target variable distribution reveals a nearly perfectly balanced dataset, with Blue team winning 49.9% of games and Red team winning 50.1%. This balance is ideal for classification problems because it means we can use accuracy as a reliable performance metric without concerns about class imbalance. If, for example, one team won 90% of games, a naive classifier that always predicted that team would achieve 90% accuracy without learning anything meaningful. The balanced nature of this dataset ensures that our models must learn genuine patterns to perform well.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
                     <pre><code class="language-python"># Summary statistics for key features
 key_features = ['blueKills', 'blueDeaths', 'blueGoldDiff', 'blueExperienceDiff', 
                 'blueDragons', 'blueHeralds', 'blueFirstBlood']
@@ -573,101 +625,6 @@ df[key_features].describe().round(2)</code></pre>
             
             <h3>2.3 Exploratory Data Analysis</h3>
             <p>Before building predictive models, it is essential to understand the relationships between early-game statistics and match outcomes. This exploratory analysis will guide feature selection and provide initial hypotheses about which factors matter most.</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span>Python</span>
-                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
-                </div>
-                <div class="code-content">
-                    <pre><code class="language-python">win_counts = df['blueWins'].value_counts()
-print("Target Variable Distribution:")
-print(f"  Blue Team Wins: {win_counts[1]:,} ({win_counts[1]/len(df):.1%})")
-print(f"  Red Team Wins:  {win_counts[0]:,} ({win_counts[0]/len(df):.1%})")
-
-fig, ax1 = plt.subplots(figsize=(8, 6))
-colors = ['#E74C3C', '#3498DB']
-wedges, texts, autotexts = ax1.pie(
-    [win_counts[0], win_counts[1]], 
-    labels=['Red Team Wins', 'Blue Team Wins'],
-    autopct='%1.1f%%',
-    colors=colors,
-    startangle=90,
-    explode=(0.02, 0.02)
-)
-ax1.set_title('Overall Win Distribution', fontweight='bold', fontsize=12)
-for autotext in autotexts:
-    autotext.set_color('white')
-    autotext.set_fontweight('bold')
-
-plt.tight_layout()
-plt.savefig('Overall Win Distribution', dpi=150, bbox_inches='tight')
-plt.show()</code></pre>
-                </div>
-            </div>
-            
-            <div class="output">
-                <pre>Target Variable Distribution:
-  Blue Team Wins: 4,930 (49.9%)
-  Red Team Wins:  4,949 (50.1%)</pre>
-            </div>
-            
-            <div class="figure">
-                <img src="Overall Win Distribution.png" alt="Overall Win Distribution">
-                <p class="figure-caption">Figure 2a: Target variable distribution showing balanced classes</p>
-            </div>
-            
-            <p>The target variable distribution reveals a nearly perfectly balanced dataset, with Blue team winning 49.9% of games and Red team winning 50.1%. This balance is ideal for classification problems because it means we can use accuracy as a reliable performance metric without concerns about class imbalance. If, for example, one team won 90% of games, a naive classifier that always predicted that team would achieve 90% accuracy without learning anything meaningful. The balanced nature of this dataset ensures that our models must learn genuine patterns to perform well.</p>
-            
-            <div class="code-block">
-                <div class="code-header">
-                    <span>Python</span>
-                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
-                </div>
-                <div class="code-content">
-                    <pre><code class="language-python">fig, ax = plt.subplots(figsize=(10, 7))
-feature_cols = ['blueGoldDiff', 'blueExperienceDiff', 'blueKills', 'blueDragons', 
-                'blueFirstBlood', 'blueTowersDestroyed', 'blueHeralds', 
-                'blueAssists', 'blueTotalMinionsKilled', 'blueDeaths']
-
-correlations = df[feature_cols].corrwith(df['blueWins']).sort_values(ascending=True)
-
-colors_corr = ['#E74C3C' if x < 0 else '#27AE60' for x in correlations.values]
-bars = ax.barh(range(len(correlations)), correlations.values, color=colors_corr, alpha=0.8)
-
-ax.set_yticks(range(len(correlations)))
-ax.set_yticklabels([col.replace('blue', '').replace('Diff', ' Difference') 
-                    for col in correlations.index], fontsize=10)
-ax.set_xlabel('Correlation Coefficient (r)', fontweight='bold')
-ax.set_title('Feature Correlations with Victory', fontweight='bold', fontsize=12)
-ax.axvline(x=0, color='black', linestyle='-', alpha=0.3)
-ax.set_xlim([-0.6, 0.6])
-ax.grid(axis='x', alpha=0.3)
-
-for bar, value in zip(bars, correlations.values):
-    x_pos = value + (0.02 if value > 0 else -0.02)
-    ax.text(x_pos, bar.get_y() + bar.get_height()/2,
-            f'{value:.3f}', ha='left' if value > 0 else 'right',
-            va='center', fontweight='bold', fontsize=9)
-
-plt.tight_layout()
-plt.savefig('figure2_feature_correlations.png', dpi=150, bbox_inches='tight')
-plt.show()</code></pre>
-                </div>
-            </div>
-            
-            <div class="figure">
-                <img src="figure2_feature_correlations.png" alt="Feature Correlations">
-                <p class="figure-caption">Figure 2b: Feature correlations with victory</p>
-            </div>
-            
-            <p>This figure presents the Pearson correlation coefficients between each feature and the binary win outcome. Gold Difference emerges as the strongest predictor with a correlation of 0.511, followed closely by Experience Difference at 0.490. These two metrics capture the fundamental resources in League of Legends: gold enables purchasing powerful items, while experience grants level advantages that increase a champion's base statistics and unlock stronger abilities.</p>
-            
-            <p>The correlation for Kills (0.338) is notably lower than for Gold Difference, which reveals an important strategic insight. Kills are valuable primarily because they generate gold and experience, not because of their intrinsic value. A team that secures many kills but fails to convert them into gold advantages (by not farming effectively afterward or by dying themselves) may not see the expected benefit. This explains why professional coaches often emphasize "clean" kills that come without trading deaths, rather than aggressive plays that result in mutual exchanges.</p>
-            
-            <p>Deaths show a strong negative correlation of -0.339, which is nearly symmetric with the positive correlation of Kills. This symmetry makes sense because in most cases, one team's kill is another team's death. However, the slight difference suggests that avoiding deaths may be marginally more important than securing kills, supporting the common advice to "play safe" when behind.</p>
-            
-            <p>Dragon control shows a correlation of 0.212, which is meaningful but not overwhelming. In the context of League of Legends, Dragon provides team-wide buffs and gold, but the first dragon typically spawns at 5:00 and takes about 30 seconds to kill. At the 10-minute mark, most games have seen at most one dragon taken, limiting the variance in this feature. First Blood, the first kill of the game worth bonus gold, shows a similar correlation of 0.202, confirming its strategic importance without being deterministic. This is reasonable since First Blood only provides 400 gold, only 100 gold more than a standard kill, and thus its impact is limited compared to sustained gold advantages.</p>
             
             <div class="code-block">
                 <div class="code-header">
@@ -708,12 +665,106 @@ df.drop('goldQuintile', axis=1, inplace=True)</code></pre>
             
             <div class="figure">
                 <img src="figure1_win_rate_by_gold.png" alt="Win Rate by Gold">
-                <p class="figure-caption">Figure 2c: Win rate by gold difference quintile</p>
             </div>
             
-            <p>The dataset is well-balanced, with Blue team winning 4,930 games (49.9%) and losing 4,949 games (50.1%). This near-equal split is expected since team assignment (Blue vs Red) is essentially random, and any inherent map-side advantage is minimal at the Diamond level where players understand how to play both sides effectively.</p>
+            <p>The figure above reveals a striking relationship between gold advantage and win probability. The left panel confirms the balanced nature of the dataset, while the right panel demonstrates the predictive power of early gold leads. Teams in the lowest gold quintile at 10 minutes win only 13.6% of their games, while teams in the highest quintile win 87.0%. This 73.4 percentage point difference is remarkably large and suggests that gold advantage is one of the most important factors in determining match outcomes.</p>
             
-            <p>The correlation analysis reveals clear relationships between early-game statistics and match outcomes. Gold Difference shows the strongest correlation with winning (r = 0.51), followed closely by Experience Difference (r = 0.49). These two metrics are themselves highly correlated (r = 0.89), which makes intuitive sense: teams that are ahead in gold have typically secured more kills and farm, both of which also grant experience.</p>
+            <p>To put this in practical terms, consider a scenario where a team secures two early kills worth 600 gold total, plus maintains a 10 CS advantage (approximately 200 gold). This 800 gold lead might be enough to move a team from the middle quintile to the fourth quintile, increasing their expected win rate from about 49% to 67%. The compounding nature of advantages in League of Legends, where gold buys items that make it easier to earn more gold, explains why early leads translate so strongly into victories.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">fig, ax = plt.subplots(figsize=(10, 7))
+feature_cols = ['blueGoldDiff', 'blueExperienceDiff', 'blueKills', 'blueDragons', 
+                'blueFirstBlood', 'blueTowersDestroyed', 'blueHeralds', 
+                'blueAssists', 'blueTotalMinionsKilled', 'blueDeaths']
+
+correlations = df[feature_cols].corrwith(df['blueWins']).sort_values(ascending=True)
+
+colors_corr = ['#E74C3C' if x < 0 else '#27AE60' for x in correlations.values]
+bars = ax.barh(range(len(correlations)), correlations.values, color=colors_corr, alpha=0.8)
+
+ax.set_yticks(range(len(correlations)))
+ax.set_yticklabels([col.replace('blue', '').replace('Diff', ' Difference') 
+                    for col in correlations.index], fontsize=10)
+ax.set_xlabel('Correlation Coefficient (r)', fontweight='bold')
+ax.set_title('Feature Correlations with Victory', fontweight='bold', fontsize=12)
+ax.axvline(x=0, color='black', linestyle='-', alpha=0.3)
+ax.set_xlim([-0.6, 0.6])
+ax.grid(axis='x', alpha=0.3)
+
+for bar, value in zip(bars, correlations.values):
+    x_pos = value + (0.02 if value > 0 else -0.02)
+    ax.text(x_pos, bar.get_y() + bar.get_height()/2,
+            f'{value:.3f}', ha='left' if value > 0 else 'right',
+            va='center', fontweight='bold', fontsize=9)
+
+plt.tight_layout()
+plt.savefig('figure2_feature_correlations.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
+            
+            <div class="figure">
+                <img src="figure2_feature_correlations.png" alt="Feature Correlations">
+            </div>
+            
+            <p>This figure presents the Pearson correlation coefficients between each feature and the binary win outcome. Gold Difference emerges as the strongest predictor with a correlation of 0.511, followed closely by Experience Difference at 0.490. These two metrics capture the fundamental resources in League of Legends: gold enables purchasing powerful items, while experience grants level advantages that increase a champion's base statistics and unlock stronger abilities.</p>
+            
+            <p>The correlation for Kills (0.338) is notably lower than for Gold Difference, which reveals an important strategic insight. Kills are valuable primarily because they generate gold and experience, not because of their intrinsic value. A team that secures many kills but fails to convert them into gold advantages (by not farming effectively afterward or by dying themselves) may not see the expected benefit. This explains why professional coaches often emphasize "clean" kills that come without trading deaths, rather than aggressive plays that result in mutual exchanges.</p>
+            
+            <p>Deaths show a strong negative correlation of -0.339, which is nearly symmetric with the positive correlation of Kills. This symmetry makes sense because in most cases, one team's kill is another team's death. However, the slight difference suggests that avoiding deaths may be marginally more important than securing kills, supporting the common advice to "play safe" when behind.</p>
+            
+            <p>Dragon control shows a correlation of 0.212, which is meaningful but not overwhelming. In the context of League of Legends, Dragon provides team-wide buffs and gold, but the first dragon typically spawns at 5:00 and takes about 30 seconds to kill. At the 10-minute mark, most games have seen at most one dragon taken, limiting the variance in this feature. First Blood, the first kill of the game worth bonus gold, shows a similar correlation of 0.202, confirming its strategic importance without being deterministic. This is reasonable since First Blood only provides 400 gold, only 100 gold more than a standard kill, and thus its impact is limited compared to sustained gold advantages.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">heatmap_features = ['blueWins', 'blueGoldDiff', 'blueExperienceDiff', 'blueKills', 'blueDeaths',
+                    'blueAssists', 'blueDragons', 'blueHeralds', 'blueFirstBlood', 
+                    'blueTowersDestroyed', 'blueTotalMinionsKilled', 'blueTotalJungleMinionsKilled']
+corr_matrix = df[heatmap_features].corr()
+
+fig, ax = plt.subplots(figsize=(12, 10))
+mask = np.triu(np.ones_like(corr_matrix, dtype=bool))
+cmap = sns.diverging_palette(250, 10, as_cmap=True)
+
+sns.heatmap(corr_matrix, mask=mask, cmap=cmap, vmax=1, vmin=-1, center=0,
+            square=True, linewidths=0.5, cbar_kws={"shrink": 0.8},
+            annot=True, fmt='.2f', annot_kws={"size": 9}, ax=ax)
+
+ax.set_title('Feature Correlation Heatmap', fontweight='bold', fontsize=14, pad=20)
+
+# Clean up labels
+labels = [col.replace('blue', '').replace('Total', '').replace('Diff', ' Diff') for col in heatmap_features]
+ax.set_xticklabels(labels, rotation=45, ha='right', fontsize=10)
+ax.set_yticklabels(labels, rotation=0, fontsize=10)
+
+plt.tight_layout()
+plt.savefig('figure2b_correlation_heatmap.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
+            
+            <div class="figure">
+                <img src="figure2b_correlation_heatmap.png" alt="Feature Correlation Heatmap">
+            </div>
+            
+            <p>The figure above presents a correlation heatmap that reveals the relationships between all features simultaneously. Several patterns emerge from this visualization.</p>
+            
+            <p>First, Gold Difference and Experience Difference are highly correlated with each other (r = 0.89), which makes intuitive sense. Teams that are ahead in gold typically have more kills and farm, both of which also grant experience. This high correlation suggests potential multicollinearity, though both features are retained because they capture slightly different aspects of team advantage.</p>
+            
+            <p>Second, Kills and Assists show a very strong positive correlation (r = 0.81), reflecting that team fights generate both statistics simultaneously. Kills also correlate strongly with Gold Difference (r = 0.65) and Experience Difference (r = 0.58), confirming that combat success translates directly into resource advantages. Conversely, Deaths show strong negative correlations with both Gold Difference (r = -0.64) and Experience Difference (r = -0.58), highlighting how dying sets teams behind in multiple dimensions.</p>
+            
+            <p>Third, an interesting pattern emerges with MinionsKilled (CS): it correlates negatively with Deaths (r = -0.47), suggesting that players who die frequently also miss farm opportunities. This creates a double penalty that compounds their disadvantage. MinionsKilled also shows moderate positive correlations with Gold Difference (r = 0.45) and Experience Difference (r = 0.45), reinforcing the importance of consistent farming.</p>
+            
+            <p>Last, First Blood shows moderate correlations with Gold Difference (r = 0.38) and Kills (r = 0.27), but weaker correlations with other features, indicating it captures unique early-game information not fully redundant with other combat statistics. Dragons and Heralds show relatively weak correlations with each other (r = 0.02), suggesting that securing one objective does not necessarily predict securing the other. Teams may prioritize different sides of the map based on their composition and game state.</p>
         </section>
         
         <!-- Methods -->
@@ -1168,6 +1219,19 @@ plt.show()</code></pre>
             
             <h3>4.1 Model Performance Comparison</h3>
             
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># summary
+results_df = pd.DataFrame(results).T
+results_df.columns = ['Train Acc', 'Test Acc', 'Precision', 'Recall', 'F1']
+results_df.round(4)</code></pre>
+                </div>
+            </div>
+            
             <div class="table-wrapper">
                 <table>
                     <thead>
@@ -1184,11 +1248,58 @@ plt.show()</code></pre>
                 </table>
             </div>
             
-            <p>The results reveal a striking finding: all six models achieve similar test accuracy around 72%, despite their fundamentally different approaches. The gap between the best (Logistic Regression at 72.42%) and worst (Gradient Boosting and SVM at 71.76%) performers is less than 1 percentage point. This convergence suggests that we are approaching a ceiling imposed by the data itself rather than model limitations.</p>
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Model compare
+fig, ax = plt.subplots(figsize=(11, 6))
+
+models = list(results.keys())
+x = np.arange(len(models))
+width = 0.35
+
+train_accs = [results[m]['train_acc'] for m in models]
+test_accs = [results[m]['test_acc'] for m in models]
+bars1 = ax.bar(x - width/2, train_accs, width, label='Training Accuracy', color='#3498DB', alpha=0.8)
+bars2 = ax.bar(x + width/2, test_accs, width, label='Test Accuracy', color='#E74C3C', alpha=0.8)
+
+ax.set_xlabel('Model', fontweight='bold')
+ax.set_ylabel('Accuracy', fontweight='bold')
+ax.set_title('Model Performance Comparison', fontweight='bold', fontsize=12)
+ax.set_xticks(x)
+ax.set_xticklabels(models, rotation=15, ha='right')
+ax.set_ylim([0.65, 0.82])
+ax.legend(loc='upper right')
+ax.grid(axis='y', alpha=0.3)
+
+for bar in bars1:
+    ax.text(bar.get_x() + bar.get_width()/2., bar.get_height() + 0.005,
+            f'{bar.get_height():.1%}', ha='center', fontsize=9, fontweight='bold')
+for bar in bars2:
+    ax.text(bar.get_x() + bar.get_width()/2., bar.get_height() + 0.005,
+            f'{bar.get_height():.1%}', ha='center', fontsize=9, fontweight='bold')
+plt.tight_layout()
+plt.savefig('figure4_model_comparison.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
             
-            <p>The training-test accuracy gaps tell an important story about overfitting. Logistic Regression shows the smallest gap (1.2 percentage points), indicating it generalizes well without memorizing training data. Decision Tree has a similarly small gap (1.8 points). Random Forest shows the largest gap (6.8 points), suggesting it captures some noise in the training data that does not generalize. Gradient Boosting (3.3 points) and SVM (2.4 points) fall in between.</p>
+            <div class="figure">
+                <img src="figure4_model_comparison.png" alt="Model Performance Comparison">
+            </div>
             
-            <h3>4.2 ROC Curves</h3>
+            <p>Figure 3 compares training and test accuracy across all six models, revealing several important patterns. All models achieve approximately 72% test accuracy, suggesting this may represent an approximate ceiling for prediction using only 10-minute statistics. The consistency across fundamentally different algorithms, from linear models to tree ensembles to kernel methods, indicates that the remaining 28% of matches are determined by factors not captured in these early-game features, such as champion compositions, individual player skill, or strategic decisions made after the 10-minute mark.</p>
+            
+            <p>The Logistic Regression models demonstrate excellent generalization, with only a 1.2% gap between training and test accuracy. This small gap indicates that the linear decision boundary is well-suited to this problem, and the regularization is effectively preventing overfitting. Decision Tree shows a similar small gap of 1.8%, benefiting from the depth and sample constraints that prevent it from memorizing the training data.</p>
+            
+            <p>In contrast, Random Forest shows signs of overfitting with a 6.8% gap between training and test accuracy, meaning it has learned some patterns in the training data that do not generalize to new games. Gradient Boosting shows moderate overfitting with a 3.3% gap, while SVM falls in between with a 2.4% gap. Despite these differences in overfitting behavior, all models converge to similar test accuracy around 72%.</p>
+            
+            <p>The cross-validation results confirm Logistic Regression with L1 regularization as the best-performing model, achieving 73.5% accuracy with a standard deviation of only 1.5%. This tight standard deviation indicates stable performance across different subsets of the data, which is a desirable property for a model that will be applied to new, unseen games.</p>
+            
+            <h3>4.2 ROC Curves and AUC Analysis</h3>
             
             <div class="code-block">
                 <div class="code-header">
@@ -1256,14 +1367,13 @@ for name, score in auc_scores.items():
             
             <div class="figure">
                 <img src="figure5_roc_curves.png" alt="ROC Curves">
-                <p class="figure-caption">Figure 4: ROC curves showing discriminative ability of all six models</p>
             </div>
             
             <p>This figure presents the Receiver Operating Characteristic (ROC) curves for all six models. The ROC curve plots the True Positive Rate against the False Positive Rate at various classification thresholds, providing a view of model performance across all possible decision boundaries.</p>
             
-            <p>All models significantly outperform random classification (the diagonal line), with AUC scores ranging from 0.78 to 0.81. The Logistic Regression models achieve the highest AUC scores (around 0.806), indicating excellent discriminative ability. This means that when presented with one winning game and one losing game, the model correctly ranks them approximately 80% of the time.</p>
+            <p>All models significantly outperform random classification (the diagonal line), with AUC scores ranging from 0.71 to 0.81. The Logistic Regression models achieve the highest AUC scores (around 0.806), indicating excellent discriminative ability. This means that when presented with one winning game and one losing game, the model correctly ranks them approximately 80% of the time.</p>
             
-            <p>The Decision Tree shows notably lower AUC compared to other models, likely because it tends to make more confident but sometimes incorrect predictions. The ensemble methods (Random Forest and Gradient Boosting) achieve similar AUC scores to Logistic Regression, confirming that model complexity does not substantially improve discriminative performance for this problem.</p>
+            <p>The Decision Tree shows notably lower AUC (0.71) compared to other models, likely because it tends to make more confident but sometimes incorrect predictions. The ensemble methods (Random Forest and Gradient Boosting) achieve similar AUC scores to Logistic Regression, confirming that model complexity does not substantially improve discriminative performance for this problem.</p>
             
             <h3>4.3 Feature Importance Analysis</h3>
             <p>Understanding which features drive predictions is essential for translating model results into strategic recommendations. I analyze feature importance using two complementary methods: Logistic Regression coefficients, which indicate both the magnitude and direction of each feature's effect, and Random Forest importance scores, which measure how much each feature reduces prediction uncertainty.</p>
@@ -1317,7 +1427,6 @@ plt.show()</code></pre>
             
             <div class="figure">
                 <img src="figure6_feature_importance.png" alt="Feature Importance">
-                <p class="figure-caption">Figure 5: Feature importance from Logistic Regression coefficients and Random Forest</p>
             </div>
             
             <p>This figure presents feature importance from two different perspectives, and the consistency between them strengthens our confidence in the findings. Gold Difference emerges as the dominant predictor in both methods, with the highest Logistic Regression coefficient (over 1.0) and the highest Random Forest importance (0.27). This makes intuitive sense: gold is the fundamental currency of League of Legends, enabling the purchase of items that increase damage, survivability, and utility. A 1,000 gold lead might allow a player to complete a major item component before their opponent, creating a power spike that compounds into further advantages.</p>
@@ -1381,7 +1490,6 @@ weighted avg       0.72      0.72      0.72      1976</pre>
             
             <div class="figure">
                 <img src="figure5_confusion_matrix.png" alt="Confusion Matrix">
-                <p class="figure-caption">Figure 6: Confusion matrix for Random Forest model</p>
             </div>
             
             <p>This figure displays the confusion matrix for the Random Forest model, showing how predictions map to actual outcomes. The model correctly classified 713 Red wins (36.1%) and 710 Blue wins (35.9%), achieving an overall accuracy of 72%. The false predictions are nearly symmetric: 277 games (14.0%) where Red actually won but the model predicted Blue, and 276 games (14.0%) where Blue actually won but the model predicted Red.</p>
