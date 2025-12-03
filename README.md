@@ -1,10 +1,12 @@
 # League of Legends Match Prediction
+## Welcome to the summoner's rift
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success)](https://YOUR_USERNAME.github.io/YOUR_REPO)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-yellow)](LICENSE)
 
 **Predicting Match Outcomes from Early Game Statistics using Machine Learning**
+
 
 ![Project Banner](https://cdn1.epicgames.com/offer/24b9b5e323bc40eea252a10cdd3b2f10/EGS_LeagueofLegends_RiotGames_S1_2560x1440-47eb328eac5ddd63ebd096ded7d0d5ab)
 
