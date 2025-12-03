@@ -37,7 +37,6 @@
             font-size: 15px;
         }
         
-        /* Navigation */
         nav {
             position: fixed;
             top: 0;
@@ -83,14 +82,12 @@
         
         .nav-links a:hover { color: var(--gold); }
         
-        /* Main Container */
         .container {
             max-width: 900px;
             margin: 0 auto;
             padding: 70px 2rem 4rem;
         }
         
-        /* Header */
         .paper-header {
             text-align: center;
             padding: 2.5rem 0;
@@ -115,11 +112,8 @@
             font-size: 0.9rem;
         }
         
-        .header-meta .course {
-            color: var(--blue);
-        }
+        .header-meta .course { color: var(--blue); }
         
-        /* Download Bar */
         .download-bar {
             display: flex;
             flex-wrap: wrap;
@@ -157,7 +151,6 @@
             color: var(--gold);
         }
         
-        /* Sections */
         .section { margin-bottom: 3rem; }
         
         h2 {
@@ -181,13 +174,8 @@
             margin: 1.5rem 0 0.8rem;
         }
         
-        p {
-            margin-bottom: 1rem;
-            text-align: justify;
-        }
-        
+        p { margin-bottom: 1rem; text-align: justify; }
         a { color: var(--blue); }
-        
         strong, b { color: var(--gold-light); }
         
         code {
@@ -198,17 +186,17 @@
             font-size: 0.85em;
         }
         
-        /* Images */
-        .figure {
-            margin: 1.5rem 0;
-            text-align: center;
-        }
+        .figure { margin: 1.5rem 0; text-align: center; }
         
         .figure img {
             max-width: 100%;
             border-radius: 8px;
             border: 1px solid var(--border-color);
+            transition: transform 0.3s ease;
+            cursor: zoom-in;
         }
+        
+        .figure img:hover { transform: scale(1.02); }
         
         .figure-caption {
             margin-top: 0.6rem;
@@ -217,7 +205,6 @@
             font-style: italic;
         }
         
-        /* Code Blocks */
         .code-block {
             margin: 1.2rem 0;
             background: #1a1a2e;
@@ -247,9 +234,7 @@
             font-size: 0.7rem;
         }
         
-        .code-toggle:hover {
-            background: rgba(200, 170, 110, 0.15);
-        }
+        .code-toggle:hover { background: rgba(200, 170, 110, 0.15); }
         
         .code-content {
             max-height: 500px;
@@ -262,10 +247,7 @@
             overflow: hidden;
         }
         
-        .code-content pre {
-            margin: 0;
-            padding: 1rem;
-        }
+        .code-content pre { margin: 0; padding: 1rem; }
         
         .code-content code {
             font-size: 0.82rem;
@@ -274,7 +256,6 @@
             padding: 0;
         }
         
-        /* Output */
         .output {
             margin: 0.8rem 0 1.5rem;
             padding: 0.8rem 1rem;
@@ -286,12 +267,8 @@
             overflow-x: auto;
         }
         
-        .output pre {
-            margin: 0;
-            white-space: pre-wrap;
-        }
+        .output pre { margin: 0; white-space: pre-wrap; }
         
-        /* Tables */
         .table-wrapper {
             margin: 1.2rem 0;
             overflow-x: auto;
@@ -299,12 +276,7 @@
             border-radius: 8px;
         }
         
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-        }
-        
+        table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
         thead { background: rgba(200, 170, 110, 0.12); }
         
         th {
@@ -322,7 +294,6 @@
         
         tbody tr:hover { background: rgba(10, 200, 185, 0.05); }
         
-        /* Equation */
         .equation {
             padding: 1rem;
             background: rgba(10, 20, 40, 0.4);
@@ -332,7 +303,6 @@
             text-align: center;
         }
         
-        /* TOC */
         .toc {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
@@ -341,43 +311,15 @@
             margin-bottom: 2rem;
         }
         
-        .toc h3 {
-            margin: 0 0 0.8rem;
-            font-size: 1rem;
-            color: var(--gold);
-        }
-        
-        .toc ul {
-            list-style: none;
-            columns: 2;
-            column-gap: 2rem;
-        }
-        
-        .toc li {
-            margin-bottom: 0.4rem;
-        }
-        
-        .toc a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.85rem;
-            transition: color 0.2s;
-        }
-        
+        .toc h3 { margin: 0 0 0.8rem; font-size: 1rem; color: var(--gold); }
+        .toc ul { list-style: none; columns: 2; column-gap: 2rem; }
+        .toc li { margin-bottom: 0.4rem; }
+        .toc a { color: var(--text-secondary); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
         .toc a:hover { color: var(--gold); }
         
-        /* References */
-        .references ol {
-            padding-left: 1.5rem;
-        }
+        .references ol { padding-left: 1.5rem; }
+        .references li { margin-bottom: 0.7rem; color: var(--text-secondary); font-size: 0.9rem; }
         
-        .references li {
-            margin-bottom: 0.7rem;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-        }
-        
-        /* Footer */
         footer {
             text-align: center;
             padding: 2rem;
@@ -387,21 +329,10 @@
             font-size: 0.8rem;
         }
         
-        /* Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: var(--blue-darker); }
         ::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-        
-        /* Interactive hover on images */
-        .figure img {
-            transition: transform 0.3s ease;
-            cursor: zoom-in;
-        }
-        
-        .figure img:hover {
-            transform: scale(1.02);
-        }
         
         @media (max-width: 768px) {
             .nav-links { display: none; }
@@ -427,7 +358,6 @@
     </nav>
     
     <div class="container">
-        <!-- Header -->
         <header class="paper-header">
             <h1>Predicting League of Legends Match Outcomes from Early Game Statistics</h1>
             <div class="header-meta">
@@ -437,15 +367,13 @@
             </div>
         </header>
         
-        <!-- Download Bar -->
         <div class="download-bar">
-            <a href="https://static.vecteezy.com/system/resources/previews/001/218/694/non_2x/under-construction-warning-sign-vector.jpg" class="dl-btn" target="_blank"><i class="fas fa-file-code"></i> Report (HTML)</a>
-            <a href="https://static.vecteezy.com/system/resources/previews/001/218/694/non_2x/under-construction-warning-sign-vector.jpg" class="dl-btn" target="_blank"><i class="fas fa-file-pdf"></i> Report (PDF)</a>
+            <a href="https://google.com" class="dl-btn" target="_blank"><i class="fas fa-file-code"></i> Report (HTML)</a>
+            <a href="https://google.com" class="dl-btn" target="_blank"><i class="fas fa-file-pdf"></i> Report (PDF)</a>
             <a href="https://github.com/lingangulguli/UCLA_C111_LoL" class="dl-btn outline" target="_blank"><i class="fab fa-github"></i> GitHub</a>
-            <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min" class="dl-btn outline" target="_blank"><i class="fas fa-download"></i> Dataset (ZIP)</a>
+            <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min" class="dl-btn outline" target="_blank"><i class="fas fa-download"></i> Dataset</a>
         </div>
         
-        <!-- TOC -->
         <div class="toc">
             <h3>Table of Contents</h3>
             <ul>
@@ -562,6 +490,62 @@ Red team features: 19</pre>
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
+                    <pre><code class="language-python">print("All Features in Dataset:")
+for i, col in enumerate(df.columns):
+    print(f"{i+1:2d}. {col}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>All Features in Dataset:
+ 1. gameId
+ 2. blueWins
+ 3. blueWardsPlaced
+ 4. blueWardsDestroyed
+ 5. blueFirstBlood
+ 6. blueKills
+ 7. blueDeaths
+ 8. blueAssists
+ 9. blueEliteMonsters
+10. blueDragons
+11. blueHeralds
+12. blueTowersDestroyed
+13. blueTotalGold
+14. blueAvgLevel
+15. blueTotalExperience
+16. blueTotalMinionsKilled
+17. blueTotalJungleMinionsKilled
+18. blueGoldDiff
+19. blueExperienceDiff
+20. blueCSPerMin
+21. blueGoldPerMin
+22. redWardsPlaced
+23. redWardsDestroyed
+24. redFirstBlood
+25. redKills
+26. redDeaths
+27. redAssists
+28. redEliteMonsters
+29. redDragons
+30. redHeralds
+31. redTowersDestroyed
+32. redTotalGold
+33. redAvgLevel
+34. redTotalExperience
+35. redTotalMinionsKilled
+36. redTotalJungleMinionsKilled
+37. redGoldDiff
+38. redExperienceDiff
+39. redCSPerMin
+40. redGoldPerMin</pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
                     <pre><code class="language-python"># Summary statistics for key features
 key_features = ['blueKills', 'blueDeaths', 'blueGoldDiff', 'blueExperienceDiff', 
                 'blueDragons', 'blueHeralds', 'blueFirstBlood']
@@ -590,28 +574,146 @@ df[key_features].describe().round(2)</code></pre>
             <h3>2.3 Exploratory Data Analysis</h3>
             <p>Before building predictive models, it is essential to understand the relationships between early-game statistics and match outcomes. This exploratory analysis will guide feature selection and provide initial hypotheses about which factors matter most.</p>
             
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">win_counts = df['blueWins'].value_counts()
+print("Target Variable Distribution:")
+print(f"  Blue Team Wins: {win_counts[1]:,} ({win_counts[1]/len(df):.1%})")
+print(f"  Red Team Wins:  {win_counts[0]:,} ({win_counts[0]/len(df):.1%})")
+
+fig, ax1 = plt.subplots(figsize=(8, 6))
+colors = ['#E74C3C', '#3498DB']
+wedges, texts, autotexts = ax1.pie(
+    [win_counts[0], win_counts[1]], 
+    labels=['Red Team Wins', 'Blue Team Wins'],
+    autopct='%1.1f%%',
+    colors=colors,
+    startangle=90,
+    explode=(0.02, 0.02)
+)
+ax1.set_title('Overall Win Distribution', fontweight='bold', fontsize=12)
+for autotext in autotexts:
+    autotext.set_color('white')
+    autotext.set_fontweight('bold')
+
+plt.tight_layout()
+plt.savefig('Overall Win Distribution', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Target Variable Distribution:
+  Blue Team Wins: 4,930 (49.9%)
+  Red Team Wins:  4,949 (50.1%)</pre>
+            </div>
+            
             <div class="figure">
                 <img src="Overall Win Distribution.png" alt="Overall Win Distribution">
+                <p class="figure-caption">Figure 2a: Target variable distribution showing balanced classes</p>
+            </div>
+            
+            <p>The target variable distribution reveals a nearly perfectly balanced dataset, with Blue team winning 49.9% of games and Red team winning 50.1%. This balance is ideal for classification problems because it means we can use accuracy as a reliable performance metric without concerns about class imbalance. If, for example, one team won 90% of games, a naive classifier that always predicted that team would achieve 90% accuracy without learning anything meaningful. The balanced nature of this dataset ensures that our models must learn genuine patterns to perform well.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">fig, ax = plt.subplots(figsize=(10, 7))
+feature_cols = ['blueGoldDiff', 'blueExperienceDiff', 'blueKills', 'blueDragons', 
+                'blueFirstBlood', 'blueTowersDestroyed', 'blueHeralds', 
+                'blueAssists', 'blueTotalMinionsKilled', 'blueDeaths']
+
+correlations = df[feature_cols].corrwith(df['blueWins']).sort_values(ascending=True)
+
+colors_corr = ['#E74C3C' if x < 0 else '#27AE60' for x in correlations.values]
+bars = ax.barh(range(len(correlations)), correlations.values, color=colors_corr, alpha=0.8)
+
+ax.set_yticks(range(len(correlations)))
+ax.set_yticklabels([col.replace('blue', '').replace('Diff', ' Difference') 
+                    for col in correlations.index], fontsize=10)
+ax.set_xlabel('Correlation Coefficient (r)', fontweight='bold')
+ax.set_title('Feature Correlations with Victory', fontweight='bold', fontsize=12)
+ax.axvline(x=0, color='black', linestyle='-', alpha=0.3)
+ax.set_xlim([-0.6, 0.6])
+ax.grid(axis='x', alpha=0.3)
+
+for bar, value in zip(bars, correlations.values):
+    x_pos = value + (0.02 if value > 0 else -0.02)
+    ax.text(x_pos, bar.get_y() + bar.get_height()/2,
+            f'{value:.3f}', ha='left' if value > 0 else 'right',
+            va='center', fontweight='bold', fontsize=9)
+
+plt.tight_layout()
+plt.savefig('figure2_feature_correlations.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
+            
+            <div class="figure">
+                <img src="figure2_feature_correlations.png" alt="Feature Correlations">
+                <p class="figure-caption">Figure 2b: Feature correlations with victory</p>
+            </div>
+            
+            <p>This figure presents the Pearson correlation coefficients between each feature and the binary win outcome. Gold Difference emerges as the strongest predictor with a correlation of 0.511, followed closely by Experience Difference at 0.490. These two metrics capture the fundamental resources in League of Legends: gold enables purchasing powerful items, while experience grants level advantages that increase a champion's base statistics and unlock stronger abilities.</p>
+            
+            <p>The correlation for Kills (0.338) is notably lower than for Gold Difference, which reveals an important strategic insight. Kills are valuable primarily because they generate gold and experience, not because of their intrinsic value. A team that secures many kills but fails to convert them into gold advantages (by not farming effectively afterward or by dying themselves) may not see the expected benefit. This explains why professional coaches often emphasize "clean" kills that come without trading deaths, rather than aggressive plays that result in mutual exchanges.</p>
+            
+            <p>Deaths show a strong negative correlation of -0.339, which is nearly symmetric with the positive correlation of Kills. This symmetry makes sense because in most cases, one team's kill is another team's death. However, the slight difference suggests that avoiding deaths may be marginally more important than securing kills, supporting the common advice to "play safe" when behind.</p>
+            
+            <p>Dragon control shows a correlation of 0.212, which is meaningful but not overwhelming. In the context of League of Legends, Dragon provides team-wide buffs and gold, but the first dragon typically spawns at 5:00 and takes about 30 seconds to kill. At the 10-minute mark, most games have seen at most one dragon taken, limiting the variance in this feature. First Blood, the first kill of the game worth bonus gold, shows a similar correlation of 0.202, confirming its strategic importance without being deterministic. This is reasonable since First Blood only provides 400 gold, only 100 gold more than a standard kill, and thus its impact is limited compared to sustained gold advantages.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">fig, ax = plt.subplots(figsize=(10, 5))
+
+df['goldQuintile'] = pd.qcut(df['blueGoldDiff'], q=5, 
+                             labels=['Q1 (Lowest)', 'Q2', 'Q3', 'Q4', 'Q5 (Highest)'])
+win_rate_by_gold = df.groupby('goldQuintile', observed=True)['blueWins'].mean()
+
+colors_gradient = ['#c0392b', '#e74c3c', '#f39c12', '#27ae60', '#1e8449']
+bars = ax.bar(range(len(win_rate_by_gold)), win_rate_by_gold.values, 
+              color=colors_gradient, edgecolor='black')
+
+ax.set_xlabel('Gold Difference Quintile at 10 min', fontweight='bold')
+ax.set_ylabel('Win Rate', fontweight='bold')
+ax.set_title('Win Rate by Early Gold Lead', fontweight='bold', fontsize=14)
+ax.set_xticks(range(len(win_rate_by_gold)))
+ax.set_xticklabels(win_rate_by_gold.index, fontsize=10)
+ax.axhline(y=0.5, color='gray', linestyle='--', alpha=0.7, label='50% Win Rate')
+ax.set_ylim([0, 1])
+ax.legend()
+
+for bar, value in zip(bars, win_rate_by_gold.values):
+    ax.text(bar.get_x() + bar.get_width()/2, bar.get_height() + 0.02,
+            f'{value:.1%}', ha='center', fontweight='bold', fontsize=11)
+
+plt.tight_layout()
+plt.savefig('figure1_win_rate_by_gold.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+df.drop('goldQuintile', axis=1, inplace=True)</code></pre>
+                </div>
+            </div>
+            
+            <div class="figure">
+                <img src="figure1_win_rate_by_gold.png" alt="Win Rate by Gold">
+                <p class="figure-caption">Figure 2c: Win rate by gold difference quintile</p>
             </div>
             
             <p>The dataset is well-balanced, with Blue team winning 4,930 games (49.9%) and losing 4,949 games (50.1%). This near-equal split is expected since team assignment (Blue vs Red) is essentially random, and any inherent map-side advantage is minimal at the Diamond level where players understand how to play both sides effectively.</p>
             
             <p>The correlation analysis reveals clear relationships between early-game statistics and match outcomes. Gold Difference shows the strongest correlation with winning (r = 0.51), followed closely by Experience Difference (r = 0.49). These two metrics are themselves highly correlated (r = 0.89), which makes intuitive sense: teams that are ahead in gold have typically secured more kills and farm, both of which also grant experience.</p>
-            
-            <div class="figure">
-                <img src="figure1_win_rate_by_gold.png" alt="Win Rate by Gold">
-                <p class="figure-caption">Figure 2b: Feature correlation heatmap showing relationships between variables</p>
-            </div>
-            
-            <p>The figure above presents a correlation heatmap that reveals the relationships between all features simultaneously. Several patterns emerge from this visualization.</p>
-            
-            <p>First, Gold Difference and Experience Difference are highly correlated with each other (r = 0.89), which makes intuitive sense. Teams that are ahead in gold typically have more kills and farm, both of which also grant experience. This high correlation suggests potential multicollinearity, though both features are retained because they capture slightly different aspects of team advantage.</p>
-            
-            <p>Second, Kills and Assists show a very strong positive correlation (r = 0.81), reflecting that team fights generate both statistics simultaneously. Kills also correlate strongly with Gold Difference (r = 0.65) and Experience Difference (r = 0.58), confirming that combat success translates directly into resource advantages. Conversely, Deaths show strong negative correlations with both Gold Difference (r = -0.64) and Experience Difference (r = -0.58), highlighting how dying sets teams behind in multiple dimensions.</p>
-            
-            <p>Third, an interesting pattern emerges with MinionsKilled (CS): it correlates negatively with Deaths (r = -0.47), suggesting that players who die frequently also miss farm opportunities. This creates a double penalty that compounds their disadvantage. MinionsKilled also shows moderate positive correlations with Gold Difference (r = 0.45) and Experience Difference (r = 0.45), reinforcing the importance of consistent farming.</p>
-            
-            <p>Last, First Blood shows moderate correlations with Gold Difference (r = 0.38) and Kills (r = 0.27), but weaker correlations with other features, indicating it captures unique early-game information not fully redundant with other combat statistics. Dragons and Heralds show relatively weak correlations with each other (r = 0.02), suggesting that securing one objective does not necessarily predict securing the other. Teams may prioritize different sides of the map based on their composition and game state.</p>
         </section>
         
         <!-- Methods -->
@@ -740,6 +842,29 @@ Test Set:     1976 samples (Win Rate: 49.90%)</pre>
             <h3>3.4 Models</h3>
             <p>I implemented six classification models representing different machine learning paradigms. Each model has distinct strengths and makes different assumptions about the data, allowing us to assess which approach best captures the patterns in early-game statistics.</p>
             
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Evaluation function
+def evaluate_model(model, X_tr, X_te, y_tr, y_te):
+    """Calculate comprehensive metrics for model evaluation."""
+    y_train_pred = model.predict(X_tr)
+    y_test_pred = model.predict(X_te)
+    return {
+        'train_acc': accuracy_score(y_tr, y_train_pred),
+        'test_acc': accuracy_score(y_te, y_test_pred),
+        'precision': precision_score(y_te, y_test_pred),
+        'recall': recall_score(y_te, y_test_pred),
+        'f1': f1_score(y_te, y_test_pred)
+    }
+
+results = {}</code></pre>
+                </div>
+            </div>
+            
             <h4>3.4.1 Logistic Regression (L2)</h4>
             <p>Logistic Regression is a linear classification algorithm that models the probability of the positive class using the sigmoid function. For a feature vector x, the predicted probability is given by:</p>
             
@@ -755,7 +880,7 @@ Test Set:     1976 samples (Win Rate: 49.90%)</pre>
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
-                    <pre><code class="language-python"># Model 1: Logistic Regression with L2 regularization
+                    <pre><code class="language-python"># Model 1 logistic with L2
 log_reg = LogisticRegression(penalty='l2', C=1.0, solver='lbfgs', max_iter=1000, random_state=42)
 log_reg.fit(X_train_scaled, y_train)
 results['Logistic Regression'] = evaluate_model(log_reg, X_train_scaled, X_test_scaled, y_train, y_test)
@@ -781,7 +906,7 @@ print(f"  Test Accuracy:  {results['Logistic Regression']['test_acc']:.4f}")</co
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
-                    <pre><code class="language-python"># Model 2: Logistic Regression with L1 (Lasso)
+                    <pre><code class="language-python"># lasso
 log_reg_l1 = LogisticRegression(penalty='l1', C=1.0, solver='saga', max_iter=1000, random_state=42)
 log_reg_l1.fit(X_train_scaled, y_train)
 results['Logistic Regression (L1)'] = evaluate_model(log_reg_l1, X_train_scaled, X_test_scaled, y_train, y_test)
@@ -818,7 +943,7 @@ print(f"  Features selected: {n_selected}/{len(selected_features)}")</code></pre
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
-                    <pre><code class="language-python"># Model 3: Decision Tree
+                    <pre><code class="language-python">#Decision Tree
 decision_tree = DecisionTreeClassifier(
     criterion='gini', max_depth=5, min_samples_split=50, min_samples_leaf=20, random_state=42
 )
@@ -848,9 +973,10 @@ print(f"  Test Accuracy:  {results['Decision Tree']['test_acc']:.4f}")</code></p
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
-                    <pre><code class="language-python"># Model 4: Random Forest
+                    <pre><code class="language-python"># Random Forest
 random_forest = RandomForestClassifier(
-    n_estimators=100, max_depth=10, min_samples_split=20, random_state=42, n_jobs=-1
+    n_estimators=100, criterion='gini', max_depth=10, 
+    min_samples_split=20, min_samples_leaf=10, random_state=42, n_jobs=-1
 )
 random_forest.fit(X_train, y_train)
 results['Random Forest'] = evaluate_model(random_forest, X_train, X_test, y_train, y_test)
@@ -868,7 +994,7 @@ print(f"  Test Accuracy:  {results['Random Forest']['test_acc']:.4f}")</code></p
             </div>
             
             <h4>3.4.5 Gradient Boosting</h4>
-            <p>Gradient Boosting builds trees sequentially, where each new tree attempts to correct the errors made by the previous ensemble. Unlike Random Forest which builds trees independently, Gradient Boosting uses gradient descent to optimize a loss function iteratively.</p>
+            <p>Gradient Boosting builds an ensemble of decision trees sequentially, where each new tree attempts to correct the errors made by the previous trees. Unlike Random Forest which trains trees independently, Gradient Boosting uses a gradient descent approach to minimize a loss function. The learning rate parameter controls how much each tree contributes to the final prediction, trading off between accuracy and overfitting.</p>
             
             <div class="code-block">
                 <div class="code-header">
@@ -876,7 +1002,7 @@ print(f"  Test Accuracy:  {results['Random Forest']['test_acc']:.4f}")</code></p
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
-                    <pre><code class="language-python"># Model 5: Gradient Boosting
+                    <pre><code class="language-python"># Gradient Boosting
 gradient_boosting = GradientBoostingClassifier(
     n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42
 )
@@ -910,27 +1036,124 @@ print(f"  Test Accuracy:  {results['Gradient Boosting']['test_acc']:.4f}")</code
                     <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
                 </div>
                 <div class="code-content">
-                    <pre><code class="language-python"># Model 6: SVM with RBF kernel
+                    <pre><code class="language-python"># SVM with RBF kernel
 svm_model = SVC(kernel='rbf', C=1.0, gamma='scale', probability=True, random_state=42)
-svm_model.fit(X_train_scaled, y_train)
+svm_model.fit(X_train_scaled, y_train)  # SVM needs scaling
 results['SVM (RBF)'] = evaluate_model(svm_model, X_train_scaled, X_test_scaled, y_train, y_test)
 
-print("SVM (RBF):")
+print("SVM (RBF Kernel):")
 print(f"  Train Accuracy: {results['SVM (RBF)']['train_acc']:.4f}")
 print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
                 </div>
             </div>
             
             <div class="output">
-                <pre>SVM (RBF):
+                <pre>SVM (RBF Kernel):
   Train Accuracy: 0.7420
   Test Accuracy:  0.7176</pre>
             </div>
             
-            <h3>3.5 Hyperparameter Tuning</h3>
+            <h3>3.5 Cross-Validation and Hyperparameter Tuning</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># cv-5
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
+
+models_cv = {
+    'Logistic Regression': (LogisticRegression(penalty='l2', C=1.0, solver='lbfgs', max_iter=1000, random_state=42), True),
+    'Logistic Reg (L1)': (LogisticRegression(penalty='l1', C=1.0, solver='saga', max_iter=1000, random_state=42), True),
+    'Decision Tree': (DecisionTreeClassifier(criterion='gini', max_depth=5, min_samples_split=50, random_state=42), False),
+    'Random Forest': (RandomForestClassifier(n_estimators=100, max_depth=10, min_samples_split=20, random_state=42, n_jobs=-1), False),
+    'Gradient Boosting': (GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, max_depth=3, random_state=42), False),
+    'SVM (RBF)': (SVC(kernel='rbf', C=1.0, gamma='scale', random_state=42), True)
+}
+
+cv_results = {}
+print("Cross-Validation Results (5-Fold):")
+
+for name, (model, needs_scaling) in models_cv.items():
+    X_cv = X_train_scaled if needs_scaling else X_train
+    scores = cross_val_score(model, X_cv, y_train, cv=cv, scoring='accuracy', n_jobs=-1)
+    cv_results[name] = {'mean': scores.mean(), 'std': scores.std()}
+    print(f"  {name:22s}: {scores.mean():.4f} ± {scores.std():.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Cross-Validation Results (5-Fold):
+  Logistic Regression   : 0.7350 ± 0.0075
+  Logistic Reg (L1)     : 0.7353 ± 0.0073
+  Decision Tree         : 0.7182 ± 0.0130
+  Random Forest         : 0.7236 ± 0.0098
+  Gradient Boosting     : 0.7257 ± 0.0092
+  SVM (RBF)             : 0.7295 ± 0.0087</pre>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># Hyperparameter Tuning Experiments
+fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+
+# Random Forest
+n_estimators_range = [10, 25, 50, 100, 150, 200, 300]
+rf_train_scores = []
+rf_test_scores = []
+
+for n_est in n_estimators_range:
+    rf_temp = RandomForestClassifier(n_estimators=n_est, max_depth=10, 
+                                      min_samples_split=20, random_state=42, n_jobs=-1)
+    rf_temp.fit(X_train, y_train)
+    rf_train_scores.append(accuracy_score(y_train, rf_temp.predict(X_train)))
+    rf_test_scores.append(accuracy_score(y_test, rf_temp.predict(X_test)))
+
+ax1 = axes[0]
+ax1.plot(n_estimators_range, rf_train_scores, 'o-', label='Train', color='#3498DB', linewidth=2)
+ax1.plot(n_estimators_range, rf_test_scores, 's-', label='Test', color='#E74C3C', linewidth=2)
+ax1.set_xlabel('Number of Estimators', fontweight='bold')
+ax1.set_ylabel('Accuracy', fontweight='bold')
+ax1.set_title('Random Forest', fontweight='bold')
+ax1.legend()
+ax1.grid(alpha=0.3)
+ax1.set_ylim([0.70, 0.82])
+
+max_depth_range = [1, 2, 3, 4, 5, 6, 8, 10]
+gb_train_scores = []
+gb_test_scores = []
+
+for depth in max_depth_range:
+    gb_temp = GradientBoostingClassifier(n_estimators=100, learning_rate=0.1, 
+                                          max_depth=depth, random_state=42)
+    gb_temp.fit(X_train, y_train)
+    gb_train_scores.append(accuracy_score(y_train, gb_temp.predict(X_train)))
+    gb_test_scores.append(accuracy_score(y_test, gb_temp.predict(X_test)))
+
+ax2 = axes[1]
+ax2.plot(max_depth_range, gb_train_scores, 'o-', label='Train', color='#3498DB', linewidth=2)
+ax2.plot(max_depth_range, gb_test_scores, 's-', label='Test', color='#E74C3C', linewidth=2)
+ax2.set_xlabel('Max Depth', fontweight='bold')
+ax2.set_ylabel('Accuracy', fontweight='bold')
+ax2.set_title('Gradient Boosting', fontweight='bold')
+ax2.legend()
+ax2.grid(alpha=0.3)
+ax2.set_ylim([0.70, 1.02])
+
+plt.tight_layout()
+plt.savefig('figure3_hyperparameter_tuning.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
             
             <div class="figure">
-              <img src="figure3_hyperparameter_tuning.png" alt="Hyperparameter Tuning">
+                <img src="figure3_hyperparameter_tuning.png" alt="Hyperparameter Tuning">
                 <p class="figure-caption">Figure 3: Hyperparameter tuning experiments for Random Forest and Gradient Boosting</p>
             </div>
             
@@ -967,6 +1190,70 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             
             <h3>4.2 ROC Curves</h3>
             
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># ROC
+fig, ax = plt.subplots(figsize=(10, 8))
+
+# Define models with probability predictions
+models_roc = {
+    'Logistic Regression (L2)': (log_reg, X_test_scaled),
+    'Logistic Regression (L1)': (log_reg_l1, X_test_scaled),
+    'Decision Tree': (decision_tree, X_test),
+    'Random Forest': (random_forest, X_test),
+    'Gradient Boosting': (gradient_boosting, X_test),
+    'SVM (RBF)': (svm_model, X_test_scaled)
+}
+
+colors_roc = ['#3498DB', '#2ECC71', '#E74C3C', '#9B59B6', '#F39C12', '#1ABC9C']
+auc_scores = {}
+
+for (name, (model, X_data)), color in zip(models_roc.items(), colors_roc):
+    if hasattr(model, 'predict_proba'):
+        y_proba = model.predict_proba(X_data)[:, 1]
+    else:
+        y_proba = model.decision_function(X_data)
+    
+    fpr, tpr, _ = roc_curve(y_test, y_proba)
+    roc_auc = auc(fpr, tpr)
+    auc_scores[name] = roc_auc
+    
+    ax.plot(fpr, tpr, color=color, linewidth=2, 
+            label=f'{name} (AUC = {roc_auc:.4f})')
+
+ax.plot([0, 1], [0, 1], 'k--', linewidth=1, label='Random Classifier')
+ax.set_xlim([0.0, 1.0])
+ax.set_ylim([0.0, 1.05])
+ax.set_xlabel('False Positive Rate', fontweight='bold', fontsize=12)
+ax.set_ylabel('True Positive Rate', fontweight='bold', fontsize=12)
+ax.set_title('ROC Curves for All Models', fontweight='bold', fontsize=14)
+ax.legend(loc='lower right', fontsize=10)
+ax.grid(alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('figure5_roc_curves.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print("\nAUC Scores:")
+for name, score in auc_scores.items():
+    print(f"  {name:27s}: {score:.4f}")</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>AUC Scores:
+  Logistic Regression (L2)   : 0.8064
+  Logistic Regression (L1)   : 0.8065
+  Decision Tree              : 0.7953
+  Random Forest              : 0.8062
+  Gradient Boosting          : 0.8065
+  SVM (RBF)                  : 0.7841</pre>
+            </div>
+            
             <div class="figure">
                 <img src="figure5_roc_curves.png" alt="ROC Curves">
                 <p class="figure-caption">Figure 4: ROC curves showing discriminative ability of all six models</p>
@@ -974,11 +1261,59 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             
             <p>This figure presents the Receiver Operating Characteristic (ROC) curves for all six models. The ROC curve plots the True Positive Rate against the False Positive Rate at various classification thresholds, providing a view of model performance across all possible decision boundaries.</p>
             
-            <p>All models significantly outperform random classification (the diagonal line), with AUC scores ranging from 0.71 to 0.81. The Logistic Regression models achieve the highest AUC scores (around 0.806), indicating excellent discriminative ability. This means that when presented with one winning game and one losing game, the model correctly ranks them approximately 80% of the time.</p>
+            <p>All models significantly outperform random classification (the diagonal line), with AUC scores ranging from 0.78 to 0.81. The Logistic Regression models achieve the highest AUC scores (around 0.806), indicating excellent discriminative ability. This means that when presented with one winning game and one losing game, the model correctly ranks them approximately 80% of the time.</p>
             
-            <p>The Decision Tree shows notably lower AUC (0.71) compared to other models, likely because it tends to make more confident but sometimes incorrect predictions. The ensemble methods (Random Forest and Gradient Boosting) achieve similar AUC scores to Logistic Regression, confirming that model complexity does not substantially improve discriminative performance for this problem.</p>
+            <p>The Decision Tree shows notably lower AUC compared to other models, likely because it tends to make more confident but sometimes incorrect predictions. The ensemble methods (Random Forest and Gradient Boosting) achieve similar AUC scores to Logistic Regression, confirming that model complexity does not substantially improve discriminative performance for this problem.</p>
             
-            <h3>4.3 Feature Importance</h3>
+            <h3>4.3 Feature Importance Analysis</h3>
+            <p>Understanding which features drive predictions is essential for translating model results into strategic recommendations. I analyze feature importance using two complementary methods: Logistic Regression coefficients, which indicate both the magnitude and direction of each feature's effect, and Random Forest importance scores, which measure how much each feature reduces prediction uncertainty.</p>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># fix
+lr_coefs = pd.Series(log_reg.coef_[0], index=selected_features).sort_values(ascending=False)
+rf_importance = pd.Series(random_forest.feature_importances_, index=selected_features).sort_values(ascending=False)</code></pre>
+                </div>
+            </div>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">fig, axes = plt.subplots(1, 2, figsize=(14, 6))
+
+# L: glm coefficient
+ax1 = axes[0]
+colors_lr = ['#27AE60' if x > 0 else '#E74C3C' for x in lr_coefs.values]
+ax1.barh(range(len(lr_coefs)), lr_coefs.values, color=colors_lr, alpha=0.8)
+ax1.set_yticks(range(len(lr_coefs)))
+ax1.set_yticklabels([f.replace('blue', '') for f in lr_coefs.index], fontsize=9)
+ax1.set_xlabel('Coefficient Value', fontweight='bold')
+ax1.set_title('Logistic Regression Coefficients\n(Green = Increases Win Probability)', fontweight='bold')
+ax1.axvline(x=0, color='black', linestyle='-', alpha=0.3)
+ax1.grid(axis='x', alpha=0.3)
+
+# R: rf importance
+ax2 = axes[1]
+colors_rf = plt.cm.Blues(np.linspace(0.3, 0.9, len(rf_importance)))[::-1]
+ax2.barh(range(len(rf_importance)), rf_importance.values, color=colors_rf)
+ax2.set_yticks(range(len(rf_importance)))
+ax2.set_yticklabels([f.replace('blue', '') for f in rf_importance.index], fontsize=9)
+ax2.set_xlabel('Importance Score (Mean Decrease in Impurity)', fontweight='bold')
+ax2.set_title('Random Forest Feature Importance', fontweight='bold')
+ax2.grid(axis='x', alpha=0.3)
+
+plt.tight_layout()
+plt.savefig('figure6_feature_importance.png', dpi=150, bbox_inches='tight')
+plt.show()</code></pre>
+                </div>
+            </div>
             
             <div class="figure">
                 <img src="figure6_feature_importance.png" alt="Feature Importance">
@@ -994,6 +1329,55 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             <p>Interestingly, several features show negative coefficients in Logistic Regression when controlling for other variables. CS Difference and raw Kills both have negative coefficients, which seems counterintuitive at first. However, this reveals an important insight: once we account for Gold Difference and Experience Difference, additional kills or CS that do not translate into these resource advantages may indicate inefficient play. A team might have more kills but still lose if those kills came at the cost of deaths, missed objectives, or poor map positioning. This explains why professional teams often prioritize clean, low-risk plays over aggressive trades that might generate kills but sacrifice other advantages.</p>
             
             <h3>4.4 Confusion Matrix</h3>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python">#Confusion Matrix
+y_pred = random_forest.predict(X_test)
+cm = confusion_matrix(y_test, y_pred)
+
+fig, ax = plt.subplots(figsize=(7, 6))
+im = ax.imshow(cm, cmap='Blues')
+ax.figure.colorbar(im, ax=ax)
+
+ax.set_xticks([0, 1])
+ax.set_yticks([0, 1])
+ax.set_xticklabels(['Predicted: Red Win', 'Predicted: Blue Win'], fontsize=10)
+ax.set_yticklabels(['Actual: Red Win', 'Actual: Blue Win'], fontsize=10)
+ax.set_xlabel('Predicted Label', fontweight='bold')
+ax.set_ylabel('True Label', fontweight='bold')
+ax.set_title('Confusion Matrix (Random Forest)', fontweight='bold')
+
+for i in range(2):
+    for j in range(2):
+        ax.text(j, i, f'{cm[i, j]}\n({cm[i, j]/cm.sum()*100:.1f}%)',
+                ha='center', va='center', fontsize=14, fontweight='bold',
+                color='white' if cm[i, j] > cm.max()/2 else 'black')
+
+plt.tight_layout()
+plt.savefig('figure5_confusion_matrix.png', dpi=150, bbox_inches='tight')
+plt.show()
+
+print("Classification Report:")
+print(classification_report(y_test, y_pred, target_names=['Red Wins', 'Blue Wins']))</code></pre>
+                </div>
+            </div>
+            
+            <div class="output">
+                <pre>Classification Report:
+              precision    recall  f1-score   support
+
+    Red Wins       0.72      0.72      0.72       990
+   Blue Wins       0.72      0.72      0.72       986
+
+    accuracy                           0.72      1976
+   macro avg       0.72      0.72      0.72      1976
+weighted avg       0.72      0.72      0.72      1976</pre>
+            </div>
             
             <div class="figure">
                 <img src="figure5_confusion_matrix.png" alt="Confusion Matrix">
@@ -1013,16 +1397,49 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             <p>The quantitative findings from the model analysis translate directly into actionable strategic recommendations for players. By examining specific game conditions and their associated win rates, we can identify which early-game factors provide the largest competitive advantages.</p>
             
             <h4>Gold Quintile Analysis</h4>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># 1. Gold Advantage
+gold_bins = pd.qcut(df['blueGoldDiff'], q=5)
+gold_impact = df.groupby(gold_bins, observed=True)['blueWins'].mean()
+print("\n1. Gold Advantage")
+print(f"   Bottom 20% gold: {gold_impact.iloc[0]:.1%} win rate")
+print(f"   Top 20% gold:    {gold_impact.iloc[-1]:.1%} win rate")
+print(f"   → Difference: {(gold_impact.iloc[-1] - gold_impact.iloc[0])*100:.1f} percentage points")</code></pre>
+                </div>
+            </div>
+            
             <div class="output">
-                <pre>1. Gold Difference Impact by Quintile
-   Bottom Quintile (< -1586 gold): 13.8% win rate
-   Top Quintile (> 1596 gold):     86.6% win rate
-   → Swing: 72.8 percentage points</pre>
+                <pre>1. Gold Advantage
+   Bottom 20% gold: 13.8% win rate
+   Top 20% gold:    86.6% win rate
+   → Difference: 72.8 percentage points</pre>
             </div>
             
             <p>The gold quintile analysis reveals a dramatic relationship between early-game gold leads and victory. Teams in the bottom quintile (more than 1,586 gold behind at 10 minutes) win only 13.8% of their games, while teams in the top quintile (more than 1,596 gold ahead) win 86.6%. This 73 percentage point swing represents the single largest factor I observed, confirming that gold is indeed the fundamental resource that drives victory.</p>
             
             <h4>First Blood Impact</h4>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># 2. First Blood
+fb_impact = df.groupby('blueFirstBlood')['blueWins'].mean()
+print("\n2. First Blood")
+print(f"   Without First Blood: {fb_impact[0]:.1%} win rate")
+print(f"   With First Blood:    {fb_impact[1]:.1%} win rate")
+print(f"   → Advantage: +{(fb_impact[1] - fb_impact[0])*100:.1f} percentage points")</code></pre>
+                </div>
+            </div>
+            
             <div class="output">
                 <pre>2. First Blood
    Without First Blood: 39.7% win rate
@@ -1032,14 +1449,26 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             
             <p>First Blood, the first kill of the game, provides a 20.2 percentage point increase in win rate—from 39.7% without it to 59.9% with it. This effect is substantial and reflects several mechanisms. First Blood grants 400 gold instead of the usual 300, providing an immediate economic advantage. It also creates a level advantage, as the killer gains experience while the victim returns to base. Perhaps equally important is the psychological impact: securing First Blood often puts the enemy laner "on tilt," causing them to play more cautiously or make desperate attempts to recover that lead to further deaths.</p>
             
-            <div class="figure">
-                <img src="https://static.wixstatic.com/media/e1e14b_c65b379e8a9d4a6b965e339d343b6d2d~mv2.jpg/v1/fill/w_570,h_168,al_c,q_80,enc_avif,quality_auto/e1e14b_c65b379e8a9d4a6b965e339d343b6d2d~mv2.jpg" alt="First Blood">
-                <p class="figure-caption">First Blood notification in game</p>
-            </div>
-            
             <p>The practical implication is that teams should seriously consider their First Blood potential during champion select and early-game planning. A team composition with strong level 1 or level 2 fighting ability (such as a Leona support with crowd control or a Lee Sin jungle known for early ganks) should look for opportunities to force early fights. Conversely, teams with scaling compositions that are weak early should invest in vision and cautious positioning to avoid giving away First Blood.</p>
             
             <h4>Dragon Control</h4>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># 3. Dragon Control
+dragon_impact = df.groupby('blueDragons')['blueWins'].mean()
+print("\n3. Dragon Control")
+print(f"   No Dragon: {dragon_impact[0]:.1%} win rate")
+if 1 in dragon_impact.index:
+    print(f"   1 Dragon:  {dragon_impact[1]:.1%} win rate")
+    print(f"   → Advantage: +{(dragon_impact[1] - dragon_impact[0])*100:.1f} percentage points")</code></pre>
+                </div>
+            </div>
+            
             <div class="output">
                 <pre>3. Dragon Control
    No Dragon: 41.9% win rate
@@ -1049,14 +1478,26 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             
             <p>Dragon control shows a meaningful 22.2 percentage point advantage, with teams securing a dragon winning 64.1% of games compared to 41.9% for teams without one. In League of Legends, Dragon spawns at 5:00 and provides team-wide buffs that stack with subsequent dragons. The first dragon typically grants one of four elemental buffs: Infernal (damage), Mountain (armor and magic resist), Ocean (health regeneration), or Cloud (movement speed).</p>
             
-            <div class="figure">
-                <img src="https://miro.medium.com/v2/0*EXgif1MRs0VuOhlG" alt="Dragon">
-                <p class="figure-caption">Dragon Soul buffs in League of Legends</p>
-            </div>
-            
             <p>However, the dragon effect should be interpreted carefully. Securing Dragon requires winning or avoiding fights in the bottom side of the map, establishing vision control, and having enough health to survive the dragon's attacks. Teams that successfully take Dragon have likely already established advantages in these areas, so some of the 22% win rate increase may reflect correlation rather than causation. The dragon itself is valuable, but the ability to take it signals broader team strength.</p>
             
             <h4>Herald Control</h4>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># 4. Herald Control
+herald_impact = df.groupby('blueHeralds')['blueWins'].mean()
+print("\n4. Herald Control")
+print(f"   No Herald: {herald_impact[0]:.1%} win rate")
+if 1 in herald_impact.index:
+    print(f"   Herald:    {herald_impact[1]:.1%} win rate")
+    print(f"   → Advantage: +{(herald_impact[1] - herald_impact[0])*100:.1f} percentage points")</code></pre>
+                </div>
+            </div>
+            
             <div class="output">
                 <pre>4. Herald Control
    No Herald: 47.7% win rate
@@ -1066,14 +1507,26 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             
             <p>The Rift Herald shows a smaller but still significant 11.8 percentage point advantage. Herald spawns at 8:00 in the top side of the map and can be summoned to crash into enemy towers, dealing substantial damage or destroying them outright. Unlike Dragon's permanent team-wide buff, Herald provides a one-time strategic advantage: tower plates worth gold and map pressure.</p>
             
-            <div class="figure">
-                <img src="https://i2.wp.com/lol.timsevenhuysen.com/wp-content/uploads/2019/06/Rift-Herald.png?fit=801%2C272&ssl=1" alt="Rift Herald">
-                <p class="figure-caption">Rift Herald objective</p>
-            </div>
-            
             <p>The lower impact compared to Dragon is somewhat surprising, as many players consider Herald the more valuable early objective. One explanation is that Dragon fights tend to be more decisive—they often result in multiple kills that compound the advantage—while Herald can sometimes be taken for free when the enemy team is focused elsewhere. A team might take Herald while losing the map overall, which would dilute the observed win rate advantage.</p>
             
             <h4>Both Objectives</h4>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># 5. Both Objectives
+both = df[(df['blueDragons'] >= 1) & (df['blueHeralds'] >= 1)]['blueWins'].mean()
+neither = df[(df['blueDragons'] == 0) & (df['blueHeralds'] == 0)]['blueWins'].mean()
+print("\n5. Both Objectives (Dragon + Herald)")
+print(f"   Neither objective: {neither:.1%} win rate")
+print(f"   Both objectives:   {both:.1%} win rate")
+print(f"   → Advantage: +{(both - neither)*100:.1f} percentage points")</code></pre>
+                </div>
+            </div>
+            
             <div class="output">
                 <pre>5. Both Objectives (Dragon + Herald)
    Neither objective: 39.9% win rate
@@ -1086,6 +1539,25 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
             <p>In practical terms, a team should develop a clear plan for contesting both objectives. If the bottom lane has priority (is in a position to move first), the team should set up vision for Dragon before it spawns at 5:00. If the top lane is stronger, the team might contest Herald at 8:00 instead. The worst outcome is losing both objectives, which suggests either poor lane performance or inability to coordinate as a team.</p>
             
             <h4>Kill Differential</h4>
+            
+            <div class="code-block">
+                <div class="code-header">
+                    <span>Python</span>
+                    <button class="code-toggle" onclick="toggleCode(this)">Hide</button>
+                </div>
+                <div class="code-content">
+                    <pre><code class="language-python"># 6. Kill Differential
+df['killDiff'] = df['blueKills'] - df['redKills']
+kill_bins = pd.cut(df['killDiff'], bins=[-20, -3, 0, 3, 20], 
+                   labels=['Behind 3+', 'Behind 1-2', 'Ahead 1-2', 'Ahead 3+'])
+kill_impact = df.groupby(kill_bins, observed=True)['blueWins'].mean()
+print("\n6. Kill Differential")
+print(f"   Behind 3+ kills: {kill_impact['Behind 3+']:.1%} win rate")
+print(f"   Ahead 3+ kills:  {kill_impact['Ahead 3+']:.1%} win rate")
+print(f"   → Swing: {(kill_impact['Ahead 3+'] - kill_impact['Behind 3+'])*100:.1f} percentage points")</code></pre>
+                </div>
+            </div>
+            
             <div class="output">
                 <pre>6. Kill Differential
    Behind 3+ kills: 18.8% win rate
@@ -1134,7 +1606,7 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
         <!-- Conclusion -->
         <section id="conclusion" class="section">
             <h2>6. Conclusion</h2>
-            <p>This project successfully developed machine learning models to predict League of Legends match outcomes from early-game statistics, achieving approximately 72% accuracy across six different algorithms. The analysis reveals that gold difference is the strongest predictor of victory, with teams in the top gold quintile winning 87% of games compared to just 14% for teams in the bottom quintile. First Blood provides a 20 percentage point win rate advantage, Dragon control adds 22 percentage points, and teams securing both major objectives win 72% of their matches.</p>
+            <p>This project successfully developed machine learning models to predict League of Legends match outcomes from early-game statistics, achieving approximately 72% accuracy across six different algorithms. The analysis reveals that gold difference is the strongest predictor of victory, with teams in the top gold quintile winning 87% of games compared to just 14% for teams in the bottom quintile. First Blood provides a 20 percentage point win rate advantage, Dragon control adds 22 percentage points, and teams securing both major objectives win 73% of their matches.</p>
             
             <p>The practical implications for players are clear. Consistent farming should be the first priority, as gold income is the foundation of all other advantages. First Blood should be actively pursued when team compositions and positioning allow. Dragon should be prioritized over Herald when both are available. Deaths should be minimized through proper vision and risk assessment. And teams that fall behind should recognize the need for calculated aggression rather than passive play.</p>
             
