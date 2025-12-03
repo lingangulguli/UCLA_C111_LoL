@@ -44,4 +44,5 @@ This project is for educational purposes as part of UCLA coursework.
 
 **Author**: Aaron Wen  
 **Contact**: siyuanwe@g.ucla.edu
+**Linkedin**: https://www.linkedin.com/in/aaron-wen-60505b2a3/
 
