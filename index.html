@@ -3,310 +3,335 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LoL Match Prediction | ML Research Project</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Aaron Wen - Portfolio</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --gold: #C8AA6E;
-            --gold-light: #F0E6D2;
-            --gold-dark: #785A28;
-            --blue: #0AC8B9;
-            --blue-dark: #0A1428;
-            --blue-darker: #010A13;
-        }
-        
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: var(--blue-darker);
-            color: var(--gold-light);
-            min-height: 100vh;
-            overflow-x: hidden;
-        }
-        
-        .bg-animation {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: 
-                radial-gradient(ellipse at 20% 80%, rgba(10, 200, 185, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 20%, rgba(200, 170, 110, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 50% 50%, rgba(10, 20, 40, 1) 0%, var(--blue-darker) 100%);
-        }
-        
-        .content {
-            position: relative;
-            z-index: 1;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-        }
-        
-        .header {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-        
-        .badge {
-            display: inline-block;
-            padding: 0.4rem 1rem;
-            background: rgba(200, 170, 110, 0.15);
-            border: 1px solid var(--gold-dark);
-            border-radius: 20px;
-            font-size: 0.75rem;
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 1.5rem;
-        }
-        
-        h1 {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(1.8rem, 5vw, 2.8rem);
-            color: var(--gold);
-            margin-bottom: 1rem;
-            line-height: 1.2;
-            max-width: 700px;
-        }
-        
-        .subtitle {
-            font-size: 1rem;
-            color: var(--gold-light);
-            opacity: 0.8;
-            max-width: 600px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-        
-        .author-card {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin: 1.5rem 0;
-            padding: 0.8rem 1.2rem;
-            background: rgba(10, 20, 40, 0.6);
-            border: 1px solid rgba(200, 170, 110, 0.2);
-            border-radius: 8px;
-        }
-        
-        .author-avatar {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: var(--blue-darker);
-        }
-        
-        .author-info h3 {
-            font-size: 0.95rem;
-            color: var(--gold-light);
-            font-weight: 500;
-        }
-        
-        .author-info p {
-            font-size: 0.8rem;
-            color: var(--blue);
-        }
-        
-        .stats-row {
-            display: flex;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-        
-        .stat {
-            text-align: center;
-            padding: 0.5rem;
-        }
-        
-        .stat-value {
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            color: var(--gold);
-        }
-        
-        .stat-label {
-            font-size: 0.7rem;
-            color: var(--gold-light);
-            opacity: 0.6;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 0.8rem;
-            margin-top: 2.5rem;
-            width: 100%;
-            max-width: 350px;
-        }
-        
-        .btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.6rem;
-            padding: 0.9rem 1.5rem;
-            border-radius: 4px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: var(--blue-darker);
-        }
-        
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(200, 170, 110, 0.3);
-        }
-        
-        .btn-secondary {
-            background: transparent;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-        }
-        
-        .btn-secondary:hover {
-            background: rgba(200, 170, 110, 0.1);
-        }
-        
-        .btn-outline {
-            background: transparent;
-            border: 1px solid rgba(200, 170, 110, 0.4);
-            color: var(--gold-light);
-        }
-        
-        .btn-outline:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-        
-        .footer {
-            margin-top: 3rem;
-            text-align: center;
-            font-size: 0.75rem;
-            color: var(--gold-light);
-            opacity: 0.4;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-        
-        .footer a {
-            color: inherit;
-            text-decoration: underline;
-            transition: opacity 0.2s;
+            --primary-color: #000000;
+            --secondary-color: #ffffff;
+            --accent-color: #555555;
+            --font-primary: 'Inter', sans-serif;
+            --font-secondary: 'Merriweather', serif;
         }
 
-        .footer a:hover {
-            opacity: 1;
-            color: var(--gold);
+        body {
+            font-family: var(--font-primary);
+            background-color: var(--primary-color);
+            color: var(--secondary-color);
+            overflow-x: hidden;
         }
-        
-        .corner-decoration {
-            position: fixed;
-            width: 150px;
-            height: 150px;
-            pointer-events: none;
-            opacity: 0.08;
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: var(--font-secondary);
+            font-weight: 700;
         }
-        
-        .corner-decoration.top-left {
+
+        /* Navbar */
+        .navbar {
+            background-color: rgba(0, 0, 0, 0.9);
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--secondary-color) !important;
+        }
+
+        .nav-link {
+            color: var(--secondary-color) !important;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link:hover {
+            color: #aaaaaa !important;
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            background-image: url('main-menu-bg.jpg');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
             top: 0;
             left: 0;
-            border-top: 2px solid var(--gold);
-            border-left: 2px solid var(--gold);
-        }
-        
-        .corner-decoration.bottom-right {
-            bottom: 0;
             right: 0;
-            border-bottom: 2px solid var(--gold);
-            border-right: 2px solid var(--gold);
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
         }
-        
-        @media (max-width: 600px) {
-            .author-card {
-                flex-direction: column;
-                text-align: center;
-            }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #cccccc;
+        }
+
+        .btn-primary, .btn-outline-light {
+            padding: 0.75rem 1.5rem;
+            font-weight: 600;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            background-color: #cccccc;
+        }
+
+        .btn-outline-light {
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+        }
+
+        .btn-outline-light:hover {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+
+        /* Avatar */
+        .avatar-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 2rem;
+            border: 4px solid var(--secondary-color);
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            color: var(--secondary-color);
+        }
+
+        /* Projects */
+        .project-card {
+            background-color: #1a1a1a;
+            border: none;
+            border-radius: 0;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .project-card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .project-card .card-body {
+            padding: 1.5rem;
+        }
+
+        .project-card h5 {
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            color: var(--secondary-color);
+        }
+
+        .project-card p {
+            color: #aaaaaa;
+        }
+
+        /* Footer */
+        footer {
+            background-color: #111111;
+            padding: 2rem;
+            text-align: center;
+            color: #cccccc;
+        }
+
+        footer a {
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
-<body>
-    <div class="bg-animation"></div>
-    <div class="corner-decoration top-left"></div>
-    <div class="corner-decoration bottom-right"></div>
-    
-    <div class="content">
-        <header class="header">
-            <span class="badge">Machine Learning Research</span>
-            <h1>Predicting League of Legends Match Outcomes from Early Game Statistics</h1>
-            <p class="subtitle">A data-driven analysis of 9,879 Diamond-tier ranked games stats using six classification models to identify key early-game factors that determine victory. Not only teach you about games, but also teach you HOW TO WIN.</p>
-        </header>
-        
-        <div class="author-card">
-            <div class="author-avatar"><i class="fas fa-user"></i></div>
-            <div class="author-info">
-                <h3>Aaron Wen</h3>
-                <p>UCLA AOS C111 · December 2025</p>
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="70">
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">Aaron Wen</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                </ul>
             </div>
         </div>
-        
-        <div class="stats-row">
-            <div class="stat">
-                <div class="stat-value">9,879</div>
-                <div class="stat-label">Games</div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content" data-aos="fade-up">
+            <h1 class="display-3 fw-bold mb-4">PREDICTING LEAGUE OF LEGENDS MATCH OUTCOMES FROM EARLY GAME STATISTICS</h1>
+            <div class="d-flex justify-content-center gap-3 mb-5">
+                <a href="Final_Report_pdfout.pdf" class="btn btn-primary btn-lg" download>
+                    <i class="bi bi-file-earmark-pdf me-2"></i>Download Full Report
+                </a>
+                <a href="https://github.com/astrowen/LoL-Match-Prediction" class="btn btn-outline-light btn-lg" target="_blank">
+                    <i class="bi bi-github me-2"></i>View on GitHub
+                </a>
             </div>
-            <div class="stat">
-                <div class="stat-value">72%</div>
-                <div class="stat-label">Accuracy</div>
+
+            <p class="text-muted mb-4 container fst-italic">My name is Aaron Wen and I'm currently a senior at University of California, Berkeley studying Data Science & Physics. This project was created for the final project of Physics C111: Introduction to Machine Learning in Physics.</p>
+
+            <div data-aos="fade-up" data-aos-delay="100" class="d-flex text-center my-4 text-uppercase aos-init aos-animate justify-content-center">
+                <div class="mx-4">
+                    <h1 class="mb-1" style="color: #d04b4b;"></h1> <p class="small text-muted"></p> </div>
+                <div class="mx-4">
+                    <h1 class="mb-1" style="color: #d04b4b;"></h1> <p class="small text-muted"></p> </div>
+                <div class="mx-4">
+                    <h1 class="mb-1" style="color: #d04b4b;"></h1> <p class="small text-muted"></p> </div>
+                <div class="mx-4">
+                    <h1 class="mb-1" style="color: #d04b4b;"></h1> <p class="small text-muted"></p> </div>
             </div>
-            <div class="stat">
-                <div class="stat-value">0.80</div>
-                <div class="stat-label">AUC</div>
+            
+            <div class="avatar-container">
+                <img src="pfp.png" alt="Avatar" class="avatar">
             </div>
-            <div class="stat">
-                <div class="stat-value">6</div>
-                <div class="stat-label">Models</div>
+
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Key Features & Methodology</h2>
+            <div class="row g-4">
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="project-card h-100">
+                        <img src="plots/feature_importance_logistic_regression.png" class="card-img-top" alt="Feature Importance">
+                        <div class="card-body">
+                            <h5 class="card-title">Feature Importance Analysis</h5>
+                            <p class="card-text">Identified Gold Difference, Experience Difference, and Objective Control (Dragons/Heralds) as the most critical early-game factors driving victory.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="project-card h-100">
+                        <img src="plots/model_comparison_roc_curves.png" class="card-img-top" alt="Model Comparison">
+                        <div class="card-body">
+                            <h5 class="card-title">Model Comparison</h5>
+                            <p class="card-text">Evaluated 6 models (Logistic Regression, SVM, Random Forest, etc.). Logistic Regression with L1 regularization performed best (AUC 0.80).</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                    <div class="project-card h-100">
+                        <img src="plots/objective_control_impact.png" class="card-img-top" alt="Objective Control">
+                        <div class="card-body">
+                            <h5 class="card-title">Strategic Insights</h5>
+                            <p class="card-text">Quantified the impact of objectives: securing both the first Dragon and Herald leads to a 73% win probability.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="buttons">
-            <a href="report.html" class="btn btn-primary">
-                <i class="fas fa-book-open"></i> View Full Report
-            </a>
-            <a href="https://github.com/lingangulguli/UCLA_C111_LoL" class="btn btn-secondary" target="_blank">
-                <i class="fab fa-github"></i> GitHub Repository
-            </a>
-            <a href="https://www.kaggle.com/datasets/bobbyscience/league-of-legends-diamond-ranked-games-10-min" class="btn btn-outline" target="_blank">
-                <i class="fas fa-database"></i> Download Dataset (Kaggle)
-            </a>
+    </section>
+
+    <section id="about" style="background-color: #111111;">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">About the Project</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <p class="lead mb-4">Leveraging machine learning to understand the "snowball effect" in competitive gaming.</p>
+                    <p style="color: #aaaaaa;">This project analyzes nearly 10,000 Diamond-tier League of Legends matches to determine how early-game advantages (first 10 minutes) translate into match victories. By using only early-game data, we simulate a real-time predictive scenario, providing insights into the most impactful strategic decisions players can make in the laning phase.</p>
+                </div>
+            </div>
         </div>
-        
-        <footer class="footer">
-            <p>Aaron Wen 2025 UCLA AOS C111/204 · Introduction to Machine Learning for Physical Sciences</p>
-            <p>HTML framework and template inspired by <a href="https://wiki.leagueoflegends.com/" target="_blank">League of Legends Wiki</a>.</p>
-        </footer>
-    </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Get In Touch</h2>
+            <div class="row justify-content-center">
+                <div class="col-md-6 text-center" data-aos="fade-up" data-aos-delay="100">
+                    <p class="mb-4" style="color: #aaaaaa;">Interested in the code, the data, or discussing the findings? Feel free to reach out!</p>
+                    <div class="d-flex justify-content-center gap-4">
+                        <a href="mailto:aaronwen@berkeley.edu" class="text-decoration-none" style="color: var(--secondary-color); font-size: 1.5rem;">
+                            <i class="bi bi-envelope"></i>
+                        </a>
+                        <a href="https://www.linkedin.com/in/aaron-wen/" class="text-decoration-none" style="color: var(--secondary-color); font-size: 1.5rem;">
+                            <i class="bi bi-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/astrowen" class="text-decoration-none" style="color: var(--secondary-color); font-size: 1.5rem;">
+                            <i class="bi bi-github"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p class="mb-0">&copy; 2023 Aaron Wen. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 1000,
+            once: true
+        });
+    </script>
 </body>
 </html>
