@@ -1104,7 +1104,8 @@ print(f"  Test Accuracy:  {results['SVM (RBF)']['test_acc']:.4f}")</code></pre>
   Test Accuracy:  0.7176</pre>
             </div>
             
-            <h3>3.5 Cross-Validation and Hyperparameter Tuning</h3>
+            <h3>3.5 Cross-Validation</h3>
+            <p>To obtain robust performance estimates that are less sensitive to the particular train-test split, I apply 5-fold stratified cross-validation. This procedure divides the training data into 5 equal parts, trains the model on 4 parts, evaluates on the remaining part, and repeats this process 5 times with different held-out folds. The result is 5 accuracy estimates, from which we compute the mean and standard deviation.</p>
             
             <div class="code-block">
                 <div class="code-header">
@@ -1137,13 +1138,18 @@ for name, (model, needs_scaling) in models_cv.items():
             
             <div class="output">
                 <pre>Cross-Validation Results (5-Fold):
-  Logistic Regression   : 0.7350 ± 0.0075
-  Logistic Reg (L1)     : 0.7353 ± 0.0073
-  Decision Tree         : 0.7182 ± 0.0130
-  Random Forest         : 0.7236 ± 0.0098
-  Gradient Boosting     : 0.7257 ± 0.0092
-  SVM (RBF)             : 0.7295 ± 0.0087</pre>
+  Logistic Regression   : 0.7341 ± 0.0156
+  Logistic Reg (L1)     : 0.7347 ± 0.0152
+  Decision Tree         : 0.7131 ± 0.0082
+  Random Forest         : 0.7291 ± 0.0131
+  Gradient Boosting     : 0.7326 ± 0.0120
+  SVM (RBF)             : 0.7269 ± 0.0117</pre>
             </div>
+            
+            <p>This indicate that the Logistic Regression with L1 regularization performs best on average, achieving 73.5% accuracy with a standard deviation of 1.5%. This suggests that the model generalizes well across different subsets of the data, and the low standard deviation indicates consistent performance.</p>
+            
+            <h3>3.6 Hyperparameter Tuning</h3>
+            <p>To understand how model performance depends on hyperparameter choices, I conduct experiments varying key hyperparameters for Random Forest and Gradient Boosting. This analysis helps identify optimal settings and reveals the bias-variance tradeoff inherent in each model.</p>
             
             <div class="code-block">
                 <div class="code-header">
@@ -1205,7 +1211,6 @@ plt.show()</code></pre>
             
             <div class="figure">
                 <img src="figure3_hyperparameter_tuning.png" alt="Hyperparameter Tuning">
-                <p class="figure-caption">Hyperparameter tuning experiments for Random Forest and Gradient Boosting</p>
             </div>
             
             <p>The hyperparameter tuning experiments reveal important insights about model behavior. For Random Forest, increasing the number of estimators beyond 50 provides diminishing returns. The test accuracy plateaus while training accuracy continues to rise slightly, suggesting that 100 estimators is a reasonable choice that balances accuracy with computational cost.</p>
@@ -1524,12 +1529,14 @@ print(f"   → Difference: {(gold_impact.iloc[-1] - gold_impact.iloc[0])*100:.1f
             
             <div class="output">
                 <pre>1. Gold Advantage
-   Bottom 20% gold: 13.8% win rate
-   Top 20% gold:    86.6% win rate
-   → Difference: 72.8 percentage points</pre>
+   Bottom 20% gold: 13.6% win rate
+   Top 20% gold:    87.0% win rate
+   → Difference: 73.4 percentage points</pre>
             </div>
             
-            <p>The gold quintile analysis reveals a dramatic relationship between early-game gold leads and victory. Teams in the bottom quintile (more than 1,586 gold behind at 10 minutes) win only 13.8% of their games, while teams in the top quintile (more than 1,596 gold ahead) win 86.6%. This 73 percentage point swing represents the single largest factor I observed, confirming that gold is indeed the fundamental resource that drives victory.</p>
+            <p>The analysis of gold advantage reveals the most dramatic impact of any factor studied. Teams in the bottom 20% of gold difference—those who are behind by approximately 1,500 gold or more at the 10-minute mark—win only 13.6% of their games. In stark contrast, teams in the top 20% win 87.0% of their games. This 73.4 percentage point difference dwarfs all other factors and represents the single most important takeaway from this analysis.</p>
+            
+            <p>To understand this in practical terms, consider what 1,500 gold represents in League of Legends. A long sword item costs 350 gold and provides 10 attack damage, so 1,500 gold is equivalent to roughly four long swords worth of combat statistics. This advantage compounds because the team with more gold can win fights more easily, which generates more gold, which enables winning even more fights. Professional players understand this dynamic intimately, which is why high-level games often feature very cautious play in the early minutes, the downside of falling behind outweighs the upside of aggressive plays that might fail.</p>
             
             <h4>First Blood Impact</h4>
             
