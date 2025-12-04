@@ -100,13 +100,9 @@
         .author-avatar {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1rem;
-            color: var(--blue-darker);
+            object-fit: cover;
+            border: 2px solid var(--gold-dark);
         }
         
         .author-info h3 {
@@ -206,13 +202,54 @@
             font-size: 0.75rem;
             color: var(--gold-light);
             opacity: 0.4;
-display: flex;
-flex-direction: column;
-gap: 0.5rem;
-@@ -80,3 +287,26 @@ <h3>Aaron Wen</h3>
-</div>
-<div class="stat">
-<div class="stat-value">6</div>
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .footer a {
+            color: var(--gold);
+            text-decoration: none;
+        }
+        
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animation"></div>
+    
+    <div class="content">
+        <div class="header">
+            <div class="badge">Machine Learning Project</div>
+            <h1>Predicting League of Legends Match Outcomes from Early Game Statistics</h1>
+            <p class="subtitle">Using machine learning to analyze 10-minute game data and predict victory with 73% accuracy</p>
+        </div>
+        
+        <div class="author-card">
+            <img src="avatar.png" alt="Aaron Wen" class="author-avatar">
+            <div class="author-info">
+                <h3>Aaron Wen</h3>
+                <p>UCLA AOS C111 · December 2025</p>
+            </div>
+        </div>
+        
+        <div class="stats-row">
+            <div class="stat">
+                <div class="stat-value">9,879</div>
+                <div class="stat-label">Games</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">73%</div>
+                <div class="stat-label">Accuracy</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">14</div>
+                <div class="stat-label">Features</div>
+            </div>
+            <div class="stat">
+                <div class="stat-value">6</div>
                 <div class="stat-label">Models</div>
             </div>
         </div>
