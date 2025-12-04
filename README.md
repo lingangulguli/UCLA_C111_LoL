@@ -1,5 +1,5 @@
 # League of Legends Match Prediction
-## Welcome to the summoner's rift
+## "Welcome to the Summoner's Rift..."
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-Live-success)](https://YOUR_USERNAME.github.io/YOUR_REPO)
 [![Python](https://img.shields.io/badge/Python-3.8+-blue)](https://python.org)
